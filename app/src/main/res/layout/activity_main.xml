@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity"
+    >
+
+
+    <View
+        android:id="@+id/centerVerticalShim"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_centerVertical="true"
+        android:visibility="invisible" />
+
+    <View
+        android:id="@+id/centerHorizontalShim"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/timetableTV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/centerVerticalShim"
+        android:layout_toLeftOf="@+id/centerHorizontalShim"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:onClick="onShowTimetableClicked"
+        android:text="@string/show_timetable"
+        android:textColor="@color/white"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </TextView>
+
+    <TextView
+        android:id="@+id/showTimetableTV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/centerVerticalShim"
+        android:layout_toRightOf="@+id/centerHorizontalShim"
+        android:background="@color/red"
+        android:gravity="center"
+        android:onClick="onShowTimetableWithMap"
+        android:text="@string/show_timetable_with_map"
+        android:textColor="@color/white" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/startTrackingTV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/centerVerticalShim"
+        android:layout_toLeftOf="@+id/centerHorizontalShim"
+        android:background="@color/lightgreen"
+        android:gravity="center"
+        android:onClick="onStartTrackingClicked"
+        android:text="@string/start_tracking"
+        android:textColor="@color/white" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/userLocationTV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/centerVerticalShim"
+        android:layout_toRightOf="@+id/centerHorizontalShim"
+        android:background="@color/bluepurple"
+        android:gravity="center"
+        android:onClick="onUserLocationClicked"
+        android:text="@string/user_location"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+    </TextView>
+
+</RelativeLayout>

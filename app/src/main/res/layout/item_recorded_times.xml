@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:id="@+id/parent"
+    >
+
+    <!-- Left Pane -->
+    <LinearLayout
+        android:id="@+id/left_pane"
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:background="@color/red"
+        >
+
+        <TextView
+            android:id="@+id/elapsed_time_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/elapsed_time"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"
+            />
+
+
+
+    </LinearLayout>
+
+
+    <!-- Right Pane -->
+
+    <LinearLayout
+        android:id="@+id/right_pane"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/blue"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/left_pane"
+        android:layout_toEndOf="@+id/left_pane">
+
+
+        <TextView
+            android:id="@+id/recorded_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/location"
+             />
+
+        <TextView
+            android:id="@+id/recorded_coordinates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/coordinates"
+             />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+
+        <tracking.id11723222.com.trackingapplication.CustomViews.TwoButtons
+            android:id="@+id/triangleButtons"
+            android:layout_width="206dp"
+            android:layout_height="167dp"
+            android:layout_alignParentTop="true" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="357dp"
+            android:id="@+id/recorderLocations" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="206dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/interval"
+            android:id="@+id/textView"
+            />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/intervals"
+            android:id="@+id/intervalSpinner" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/duration"
+            android:id="@+id/durationView" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/durationET"
+            android:maxLength="2"
+            android:layout_gravity="center_horizontal" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:id="@+id/emailButton"
+            android:checked="false" />
+
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="277dp"
+            android:id="@+id/recordedTimes" />
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+
