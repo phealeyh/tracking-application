@@ -12,7 +12,7 @@
     <string name="to">To: </string>
     <string name="subject">Subject: </string>
     <string name="body">Body: </string>
-
+    <string name="reset">Reset Values</string>
     <string name="notify">Notify Locations</string>
     <string name="user_location">Go To User Location</string>
     <string name="location">Location</string>

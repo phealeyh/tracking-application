@@ -8,19 +8,26 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical" >
 
 
-        <tracking.id11723222.com.trackingapplication.CustomViews.TwoButtons
-            android:id="@+id/triangleButtons"
-            android:layout_width="206dp"
-            android:layout_height="167dp"
-            android:layout_alignParentTop="true" />
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="118dp"
+            android:layout_height="wrap_content"
+            android:text="@string/start_tracking"
+            />
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset"
+            />
 
         <ListView
-            android:layout_width="match_parent"
-            android:layout_height="357dp"
+            android:layout_width="175dp"
+            android:layout_height="match_parent"
             android:id="@+id/recorderLocations" />
 
     </LinearLayout>
@@ -72,7 +79,7 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="277dp"
+            android:layout_height="match_parent"
             android:id="@+id/recordedTimes" />
 
 

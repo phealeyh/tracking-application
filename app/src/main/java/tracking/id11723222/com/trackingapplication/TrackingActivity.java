@@ -4,44 +4,24 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
-import android.location.Address;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Range;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.CursorAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.List;
 
-import tracking.id11723222.com.trackingapplication.CustomViews.TwoButtons;
-import tracking.id11723222.com.trackingapplication.model.ReminderData;
-import tracking.id11723222.com.trackingapplication.model.ReminderDatabaseHelper;
-import tracking.id11723222.com.trackingapplication.services.TrackingService;
 
 public class TrackingActivity extends AppCompatActivity {
     private Button mEmailButton;
-    private TwoButtons mTriangleButtons;
     private ListView mLocationListView, mTimeListView;
     private ArrayList<LatLng> locations;
     private ArrayList<Time> times;
@@ -75,7 +55,6 @@ public class TrackingActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.UPDATE_COMMAND);
         registerReceiver(mBroadcastReceiver, intentFilter);
-
     }
 
     /**
@@ -100,33 +79,6 @@ public class TrackingActivity extends AppCompatActivity {
      */
 
     private void setButtons(){
-        mTriangleButtons = (TwoButtons) findViewById(R.id.triangleButtons);
-        mTriangleButtons.setOnButtonClickEvent(new TwoButtons.ButtonClickEvents() {
-            @Override
-            public void startButtonClick() {
-                // TODO Auto-generated method stub
-                //start background service
-                Intent myIntent = new Intent(getBaseContext(), TrackingService.class);
-                Spinner intervalSpinner = (Spinner) findViewById(R.id.intervalSpinner);
-                EditText durationET = (EditText) findViewById(R.id.durationET);
-                myIntent.putExtra(Constants.INTERVAL, Integer.parseInt(intervalSpinner.getSelectedItem().toString()));
-                myIntent.putExtra(Constants.DURATION, Integer.parseInt(durationET.getText().toString()));
-                Toast.makeText(getApplicationContext(),Constants.STARTED,Toast.LENGTH_LONG).show();
-                startService(myIntent);
-            }
-
-            @Override
-            public void resetButtonClick() {
-                // TODO Auto-generated method stub
-                //reset the data given
-                locations.clear();
-                times.clear();
-                timeAdapter.notifyDataSetChanged();
-                locationAdapter.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(), Constants.CLEARED, Toast.LENGTH_SHORT).show();
-            }
-        });
-
         mEmailButton = (Button) findViewById(R.id.emailButton);
         mEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +86,6 @@ public class TrackingActivity extends AppCompatActivity {
                 setUpEmail();
             }
         });
-
     }
 
     /**
