@@ -52,6 +52,7 @@
     <string name="title_activity_go_to_location">Map</string>
     <string name="title_activity_settings">Settings</string>
     <string name="tracking_preferences">Tracking Preferences</string>
+    <string name="timer_settings">Timer Settings</string>
 
     <!-- Strings related to Settings -->
 
