@@ -35,7 +35,7 @@ public class Constants {
     public static final float ZOOM_LEVEL = 14.0f;
     public static final int INITIAL_LOCATION = 0;
     public static final int MAX_ADDRESS_VALUE = 1;
-    public static final int GAP=10;
+    public static final int GAP = 10;
     public static final int MAX_LENGTH = 64;
     public static final int ZERO = 0;
     public static final int ONE = 1;
