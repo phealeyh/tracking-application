@@ -3,9 +3,9 @@
     <ListPreference
         android:key="pref_time_settings"
         android:title="@string/preference_time_format_title"
-        android:summary="@string/preference_hour_format_hour"
-        android:defaultValue="@string/preference_hour_format_minute"
+        android:summary="@string/preference_hour_format"
+        android:defaultValue="@string/preference_hour_format"
         android:entries="@array/preference_time_settings"
-        android:entryValues="@array/preference_time_values"/>
+        android:entryValues="@array/preference_time_settings"/>
 
 </PreferenceScreen>

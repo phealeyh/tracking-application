@@ -40,11 +40,9 @@ public class Constants {
     public static final int DEFAULT_DURATION = 100000;
     public static final int MILLISECONDS_TO_MINUTES = 10000;
     public static final int MILLISECONDS_TO_SECONDS = 1000;
-
-
-
-
-
+    public static final int HOUR_INDEX = 0;
+    public static final int MINUTE_INDEX = 1;
+    public static final int SECOND_INDEX = 3;
 
 
 }

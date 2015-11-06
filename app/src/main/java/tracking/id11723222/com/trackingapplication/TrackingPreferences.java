@@ -25,11 +25,12 @@ public class TrackingPreferences extends PreferenceActivity {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.timer_settings);
         setPreferences();
+
     }
 
     private void setPreferences(){
-        Log.d("HELLO WORLD", "HELLO WORLD");
-        mTimeFormatPreference = (ListPreference)findPreference("pref_time_settings");
+        mTimeFormatPreference = (ListPreference)findPreference(Constants.PREF_TIME_SETTINGS);
+        mTimeFormatPreference.setValueIndex(Constants.HOUR_INDEX);
         mTimeFormatPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
