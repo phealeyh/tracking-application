@@ -29,6 +29,9 @@ public class Constants {
     public static final String CLEARED = "Recorded times and locations cleared";
     public static final String INTENT_SERVICE_NAME = "Tracking Service";
     public static final String PREF_TIME_SETTINGS = "pref_time_settings";
+    public static final String PREF_DURATION_SETTINGS = "pref_duration_settings";
+    public static final String PREF_INTERVAL_SETTINGS = "pref_interval_settings";
+
     public static final float ZOOM_LEVEL = 14.0f;
     public static final int INITIAL_LOCATION = 0;
     public static final int MAX_ADDRESS_VALUE = 1;
@@ -40,9 +43,17 @@ public class Constants {
     public static final int DEFAULT_DURATION = 100000;
     public static final int MILLISECONDS_TO_MINUTES = 10000;
     public static final int MILLISECONDS_TO_SECONDS = 1000;
-    public static final int HOUR_INDEX = 0;
+    public static final int SECOND_INDEX = 0;
     public static final int MINUTE_INDEX = 1;
-    public static final int SECOND_INDEX = 3;
+    public static final int HOUR_INDEX = 3;
+    public static final int FIRST_DURATION_INDEX = 0;
+    public static final int SECOND_DURATION_INDEX = 1;
+    public static final int THIRD_DURAITON_INDEX = 2;
+    public static final int FOURTH_DURATION_INDEX = 3;
+    public static final int FIRST_INTERVAL_INDEX = 0;
+    public static final int SECOND_INTERVAL_INDEX = 1;
+    public static final int THIRD_INTERVAL_INDEX = 2;
+
 
 
 }
