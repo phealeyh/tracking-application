@@ -61,6 +61,11 @@ public class ListTimetableActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        else if(id == R.id.tracking_preferences){
+            startActivity(new Intent(this,TrackingPreferences.class));
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

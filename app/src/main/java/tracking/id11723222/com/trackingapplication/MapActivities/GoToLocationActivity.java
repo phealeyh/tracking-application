@@ -24,6 +24,7 @@ import tracking.id11723222.com.trackingapplication.Constants;
 import tracking.id11723222.com.trackingapplication.CreateTimetableActivity;
 import tracking.id11723222.com.trackingapplication.MainActivity;
 import tracking.id11723222.com.trackingapplication.R;
+import tracking.id11723222.com.trackingapplication.TrackingPreferences;
 
 public class GoToLocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -83,6 +84,12 @@ public class GoToLocationActivity extends FragmentActivity implements OnMapReady
             startActivity(intent);
             return true;
         }
+
+        else if(id == R.id.tracking_preferences){
+            startActivity(new Intent(this,TrackingPreferences.class));
+            return true;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

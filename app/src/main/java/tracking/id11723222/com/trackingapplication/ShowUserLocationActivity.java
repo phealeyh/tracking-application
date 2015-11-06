@@ -85,6 +85,10 @@ public class ShowUserLocationActivity extends FragmentActivity implements OnMapR
             startActivity(intent);
             return true;
         }
+        else if(id == R.id.tracking_preferences){
+            startActivity(new Intent(this,TrackingPreferences.class));
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
