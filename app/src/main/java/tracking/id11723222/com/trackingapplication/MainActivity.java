@@ -1,6 +1,8 @@
 package tracking.id11723222.com.trackingapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
 
     /**
      * Starts the ListTimetableActivity with a blank intent
@@ -101,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
         else if (id == R.id.action_settings) {
             Intent intent = new Intent(this, CreateTimetableActivity.class);
             startActivity(intent);
+            return true;
+        }
+        else if(id == R.id.tracking_preferences){
+            startActivity(new Intent(this,TrackingPreferences.class));
             return true;
         }
 

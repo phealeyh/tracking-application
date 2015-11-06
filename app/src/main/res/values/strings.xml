@@ -53,6 +53,10 @@
     <string name="title_activity_settings">Settings</string>
     <string name="tracking_preferences">Tracking Preferences</string>
     <string name="timer_settings">Timer Settings</string>
+    <string name="preference_time_format_title">Time Format</string>
+    <string name="preference_hour_format_hour">Hour Format</string>
+    <string name="preference_hour_format_minute">Minute Format</string>
+    <string name="preference_hour_format_second">Second Format</string>
 
     <!-- Strings related to Settings -->
 
@@ -73,11 +77,36 @@
         <item>When possible</item>
         <item>Never</item>
     </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
+
+
+    <string-array name="preference_time_settings">
+        <item>Hours</item>
+        <item>Minutes</item>
+        <item>Seconds</item>
     </string-array>
+
+    <string-array name="preference_time_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+
+    <integer-array name="preference_duration">
+        <item>5</item>
+        <item>20</item>
+        <item>30</item>
+        <item>60</item>
+    </integer-array>
+
+    <integer-array name="preference_interval">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+    </integer-array>
+
+
+
 
     <!-- Example settings for Data & Sync -->
     <string name="pref_header_data_sync">Data &amp; sync</string>

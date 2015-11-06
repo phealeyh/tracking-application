@@ -28,6 +28,7 @@ public class Constants {
     public static final String UPDATE_COMMAND = "Updating";
     public static final String CLEARED = "Recorded times and locations cleared";
     public static final String INTENT_SERVICE_NAME = "Tracking Service";
+    public static final String PREF_TIME_SETTINGS = "pref_time_settings";
     public static final float ZOOM_LEVEL = 14.0f;
     public static final int INITIAL_LOCATION = 0;
     public static final int MAX_ADDRESS_VALUE = 1;
@@ -39,6 +40,7 @@ public class Constants {
     public static final int DEFAULT_DURATION = 100000;
     public static final int MILLISECONDS_TO_MINUTES = 10000;
     public static final int MILLISECONDS_TO_SECONDS = 1000;
+
 
 
 
