@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.Toast;
 
+import tracking.id11723222.com.trackingapplication.services.TrackingService;
+
 public class TrackingActivity extends AppCompatActivity {
 
     private Button mStartButton, mResetButton, mEmailButton;
@@ -71,6 +73,7 @@ public class TrackingActivity extends AppCompatActivity {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),TrackingService.class));
                 //start service
                 Toast.makeText(getApplicationContext(),Constants.STARTED,Toast.LENGTH_LONG).show();
             }

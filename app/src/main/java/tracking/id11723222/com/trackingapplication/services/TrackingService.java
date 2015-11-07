@@ -3,10 +3,12 @@ package tracking.id11723222.com.trackingapplication.services;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,12 +24,17 @@ import tracking.id11723222.com.trackingapplication.Constants;
 
 public class TrackingService extends IntentService {
 
+
+    private int mDuration, mInterval, mMaxValue;
+    private SharedPreferences mSharedPreferences;
     /**
      * Default constructor will set the name to the constant intent service name
      */
 
     public TrackingService() {
         super(Constants.INTENT_SERVICE_NAME);
+        setTimerValues();
+        setTimeUnit();
     }
 
     /**
@@ -36,6 +43,27 @@ public class TrackingService extends IntentService {
 
     public TrackingService(String name) {
         super(name);
+        setTimerValues();
+        setTimeUnit();
+    }
+
+    private void setTimerValues(){
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mDuration = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS, ""));
+        mInterval = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS,""));
+        mMaxValue = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS,""));
+
+    }
+
+    private void setTimeUnit(){
+        String time;
+        time = mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS, "");
+        //switch time
+        TIME time1 = new TIME;
+        if(TIME.HOURS.toString().equals(time)){
+            time1.
+        }
+
     }
     /**
      *Destroy service
@@ -59,13 +87,9 @@ public class TrackingService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        int interval = intent.getIntExtra(Constants.INTERVAL,Constants.DEFAULT_INTERVAL);
-        int duration = intent.getIntExtra(Constants.DURATION,Constants.DEFAULT_DURATION);
-        int maxValue = (duration / interval);
-        int seconds = interval * Constants.MILLISECONDS_TO_SECONDS;
         do{
             try {
-                Thread.sleep(seconds);
+                Thread.sleep();
                 Intent newIntent = new Intent();
                 LatLng location = getCurrentLocation();
                 Time time = new Time(System.currentTimeMillis());
@@ -75,7 +99,7 @@ public class TrackingService extends IntentService {
                 sendBroadcast(newIntent);
             } catch (InterruptedException e) {
             }
-        }while((--maxValue) > 0);
+        }while((--mMaxValue) > 0);
 
     }
 
