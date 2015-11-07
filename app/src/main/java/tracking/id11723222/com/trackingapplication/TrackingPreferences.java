@@ -12,6 +12,8 @@ import android.util.Log;
 
 import java.util.prefs.Preferences;
 
+import tracking.id11723222.com.trackingapplication.model.PreferenceArray;
+
 public class TrackingPreferences extends PreferenceActivity {
 
     private SharedPreferences mSharedPreferences;
@@ -27,14 +29,15 @@ public class TrackingPreferences extends PreferenceActivity {
         super.onCreate(savedInstanceState);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         addPreferencesFromResource(R.xml.timer_settings);
+        String[] timeArray = getResources().getStringArray(R.array.preference_time_settings);
         setPreferences();
         mSharedPreferences.edit().apply();
     }
 
     private void setPreferences(){
         mTimeFormatPreference = (ListPreference)findPreference(Constants.PREF_TIME_SETTINGS);
-        //mTimeFormatPreference.setValueIndex(getSettingIndex(Constants.PREF_TIME_SETTINGS));
-        mTimeFormatPreference.setSummary(mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS, ""));
+        mTimeFormatPreference.setValueIndex(getSettingIndex(Constants.PREF_TIME_SETTINGS));
+        //mTimeFormatPreference.setSummary(mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS, ""));
         mTimeFormatPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -45,10 +48,9 @@ public class TrackingPreferences extends PreferenceActivity {
         });
 
         mDurationPreference = (ListPreference)findPreference(Constants.PREF_DURATION_SETTINGS);
-        //mDurationPreference.setValueIndex(getSettingIndex(Constants.PREF_DURATION_SETTINGS));
-        mDurationPreference.setSummary(mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS, ""));
+        mDurationPreference.setValueIndex(getSettingIndex(Constants.PREF_DURATION_SETTINGS));
+        //mDurationPreference.setSummary(mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS, ""));
         mDurationPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 mDurationPreference.setSummary(newValue.toString());
@@ -72,11 +74,18 @@ public class TrackingPreferences extends PreferenceActivity {
     private int getSettingIndex(String prefType){
         String storedPreference;
         if(prefType.equals(Constants.PREF_TIME_SETTINGS)){
+            //get string
+            storedPreference = mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS,Constants.FIRST_TIME);
+            return new PreferenceArray().getTimePreference(storedPreference);
         }
         else if(prefType.equals(Constants.PREF_DURATION_SETTINGS)){
+            storedPreference = mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS,Integer.toString(Constants.FIRST_DURATION));
+            return new PreferenceArray().getDurationPreference(storedPreference);
 
         }
         else if(prefType.equals(Constants.PREF_INTERVAL_SETTINGS)){
+            storedPreference = mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS,Integer.toString(Constants.FIRST_INTERVAL));
+            return new PreferenceArray().getIntervalPreference(storedPreference);
 
         }
         //return the default value

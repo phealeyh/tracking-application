@@ -31,6 +31,16 @@ public class Constants {
     public static final String PREF_TIME_SETTINGS = "pref_time_settings";
     public static final String PREF_DURATION_SETTINGS = "pref_duration_settings";
     public static final String PREF_INTERVAL_SETTINGS = "pref_interval_settings";
+    public static final String FIRST_TIME = "Seconds";
+    public static final String SECOND_TIME = "Minutes";
+    public static final String THIRD_TIME = "Hours";
+    public static final int FIRST_DURATION = 15;
+    public static final int SECOND_DURATION = 30;
+    public static final int THIRD_DURATION = 45;
+    public static final int FOURTH_DURATION = 60;
+    public static final int FIRST_INTERVAL = 5;
+    public static final int SECOND_INTERVAL = 10;
+    public static final int THIRD_INTERVAL = 15;
 
     public static final float ZOOM_LEVEL = 14.0f;
     public static final int INITIAL_LOCATION = 0;
