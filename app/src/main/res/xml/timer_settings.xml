@@ -4,25 +4,27 @@
         android:key="pref_time_settings"
         android:title="@string/preference_time_format_title"
         android:summary="@string/preference_second_format"
-        android:defaultValue="@string/preference_second_format"
         android:entries="@array/preference_time_settings"
-        android:entryValues="@array/preference_time_settings"/>
+        android:entryValues="@array/preference_time_settings"
+        android:defaultValue="@string/first_time"
+        />
     <ListPreference
         android:key="pref_duration_settings"
         android:title="@string/duration"
         android:summary="@string/preference_first_duration"
-        android:defaultValue="@string/preference_first_duration"
         android:entries="@array/preference_duration"
         android:entryValues="@array/preference_duration"
+        android:defaultValue="@string/first_time"
         />
 
     <ListPreference
         android:key="pref_interval_settings"
         android:title="@string/interval"
         android:summary="@string/preference_first_interval"
-        android:defaultValue="@string/preference_first_interval"
         android:entries="@array/preference_interval"
         android:entryValues="@array/preference_interval"
+        android:defaultValue="@string/first_time"
+
         />
 
 </PreferenceScreen>

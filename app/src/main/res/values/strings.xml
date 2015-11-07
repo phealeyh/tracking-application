@@ -88,26 +88,29 @@
 
 
     <string-array name="preference_time_settings">
-        <item>Seconds</item>
-        <item>Minutes</item>
-        <item>Hours</item>
+        <item>@string/preference_second_format</item>
+        <item>@string/preference_minute_format</item>
+        <item>@string/preference_hour_format</item>
     </string-array>
 
 
 
     <string-array name="preference_duration">
-        <item>15</item>
-        <item>30</item>
-        <item>45</item>
-        <item>60</item>
+        <item>@string/preference_first_duration</item>
+        <item>@string/preference_second_duration</item>
+        <item>@string/preference_third_duration</item>
+        <item>@string/preference_fourth_duration</item>
     </string-array>
 
     <string-array name="preference_interval">
-        <item>5</item>
-        <item>10</item>
-        <item>15</item>
+        <item>@string/preference_first_interval</item>
+        <item>@string/preference_second_interval</item>
+        <item>@string/preference_third_interval</item>
     </string-array>
 
+    <string name="first_time">Seconds</string>
+    <string name="first_duration">15</string>
+    <string name="first_interval">5</string>
 
 
 
@@ -131,6 +134,7 @@
         <item>360</item>
         <item>-1</item>
     </string-array>
+
 
     <string name="pref_title_system_sync_settings">System sync settings</string>
 
