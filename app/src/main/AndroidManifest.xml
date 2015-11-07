@@ -63,8 +63,6 @@
 
         <activity android:name=".TrackingActivity" >
         </activity>
-        <activity android:name=".model.PreferenceArray" >
-        </activity>
 
         <activity android:name=".TrackingPreferences" >
         </activity>
