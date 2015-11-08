@@ -29,7 +29,6 @@ public class TrackingPreferences extends PreferenceActivity {
 
     private void setPreferences(){
         mTimeFormatPreference = (ListPreference)findPreference(Constants.PREF_TIME_SETTINGS);
-        mTimeFormatPreference.setValue(mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS, ""));
         mTimeFormatPreference.setSummary(mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS, ""));
         mTimeFormatPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -41,7 +40,6 @@ public class TrackingPreferences extends PreferenceActivity {
         });
 
         mDurationPreference = (ListPreference)findPreference(Constants.PREF_DURATION_SETTINGS);
-        mDurationPreference.setValue(mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS,""));
         mDurationPreference.setSummary(mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS, ""));
         mDurationPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -52,7 +50,6 @@ public class TrackingPreferences extends PreferenceActivity {
             }
         });
         mIntervalPreference = (ListPreference)findPreference(Constants.PREF_INTERVAL_SETTINGS);
-        mIntervalPreference.setValue(mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS,""));
         mIntervalPreference.setSummary(mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS, ""));
         mIntervalPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override

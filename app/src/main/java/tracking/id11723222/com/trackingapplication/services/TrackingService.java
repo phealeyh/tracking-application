@@ -82,10 +82,9 @@ public class TrackingService extends IntentService {
                     Thread.sleep(Constants.MILLISECONDS_TO_SECONDS * mInterval);
                 }
                 //handle minutes case
-                else if(timeUnit.equals(Constants.SECOND_TIME)){
-                    {
-                        Thread.sleep(Constants.MILLISECONDS_TO_MINUTES * mInterval);
-                    }
+                else if(timeUnit.equals(Constants.SECOND_TIME))
+                {
+                    Thread.sleep(Constants.MILLISECONDS_TO_MINUTES * mInterval);
                 }
                 updateUserLocation();
             } catch (InterruptedException e) {

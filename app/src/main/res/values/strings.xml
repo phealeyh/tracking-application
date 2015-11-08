@@ -108,6 +108,27 @@
         <item>@string/preference_third_interval</item>
     </string-array>
 
+    <string-array name="interval_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="duration_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="time_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+
+
     <string name="first_time">Seconds</string>
     <string name="first_duration">15</string>
     <string name="first_interval">5</string>

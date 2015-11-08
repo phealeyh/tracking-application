@@ -14,7 +14,7 @@
         android:summary="@string/preference_first_duration"
         android:entries="@array/preference_duration"
         android:entryValues="@array/preference_duration"
-        android:defaultValue="@string/first_time"
+        android:defaultValue="@string/first_duration"
         />
 
     <ListPreference
@@ -23,7 +23,7 @@
         android:summary="@string/preference_first_interval"
         android:entries="@array/preference_interval"
         android:entryValues="@array/preference_interval"
-        android:defaultValue="@string/first_time"
+        android:defaultValue="@string/first_interval"
 
         />
 
