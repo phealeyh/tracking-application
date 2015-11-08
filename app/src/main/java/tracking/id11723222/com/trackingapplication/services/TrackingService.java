@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.sql.Time;
 
 import tracking.id11723222.com.trackingapplication.Constants;
+import tracking.id11723222.com.trackingapplication.TimeUnit;
 
 /**
  * Created by phealeyhang on 1/11/15.
@@ -25,16 +26,13 @@ import tracking.id11723222.com.trackingapplication.Constants;
 public class TrackingService extends IntentService {
 
 
-    private int mDuration, mInterval, mMaxValue;
-    private SharedPreferences mSharedPreferences;
+
     /**
      * Default constructor will set the name to the constant intent service name
      */
 
     public TrackingService() {
         super(Constants.INTENT_SERVICE_NAME);
-        setTimerValues();
-        setTimeUnit();
     }
 
     /**
@@ -43,28 +41,12 @@ public class TrackingService extends IntentService {
 
     public TrackingService(String name) {
         super(name);
-        setTimerValues();
-        setTimeUnit();
     }
 
     private void setTimerValues(){
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mDuration = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS, ""));
-        mInterval = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS,""));
-        mMaxValue = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS,""));
 
     }
 
-    private void setTimeUnit(){
-        String time;
-        time = mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS, "");
-        //switch time
-        TIME time1 = new TIME;
-        if(TIME.HOURS.toString().equals(time)){
-            time1.
-        }
-
-    }
     /**
      *Destroy service
      */
@@ -87,19 +69,39 @@ public class TrackingService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        int mDuration = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS, ""));
+        int mInterval = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS,""));
+        int mMaxValue = mDuration / mInterval;
+        String timeUnit = mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS, Constants.FIRST_TIME);
+
         do{
             try {
-                Thread.sleep();
-                Intent newIntent = new Intent();
-                LatLng location = getCurrentLocation();
-                Time time = new Time(System.currentTimeMillis());
-                newIntent.setAction(Constants.UPDATE_COMMAND);
-                newIntent.putExtra(Constants.EXTRA_LOCATION, location);
-                newIntent.putExtra(Constants.TIME, time);
-                sendBroadcast(newIntent);
+                //handle seconds case
+                if(timeUnit.equals(Constants.FIRST_TIME)){
+                    Thread.sleep(Constants.MILLISECONDS_TO_SECONDS * mInterval);
+                }
+                //handle minutes case
+                else if(timeUnit.equals(Constants.SECOND_TIME)){
+                    {
+                        Thread.sleep(Constants.MILLISECONDS_TO_MINUTES * mInterval);
+                    }
+                }
+                updateUserLocation();
             } catch (InterruptedException e) {
             }
         }while((--mMaxValue) > 0);
+
+    }
+
+    private void updateUserLocation(){
+        Intent newIntent = new Intent();
+        LatLng location = getCurrentLocation();
+        Time time = new Time(System.currentTimeMillis());
+        newIntent.setAction(Constants.UPDATE_COMMAND);
+        newIntent.putExtra(Constants.EXTRA_LOCATION, location);
+        newIntent.putExtra(Constants.TIME, time);
+        sendBroadcast(newIntent);
 
     }
 

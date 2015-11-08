@@ -29,8 +29,8 @@ public class TrackingPreferences extends PreferenceActivity {
 
     private void setPreferences(){
         mTimeFormatPreference = (ListPreference)findPreference(Constants.PREF_TIME_SETTINGS);
-        mTimeFormatPreference.setValue(mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS,""));
-        mTimeFormatPreference.setSummary(mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS,""));
+        mTimeFormatPreference.setValue(mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS, ""));
+        mTimeFormatPreference.setSummary(mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS, ""));
         mTimeFormatPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
