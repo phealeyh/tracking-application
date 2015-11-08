@@ -6,6 +6,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
+import android.util.Log;
 
 public class TrackingPreferences extends PreferenceActivity {
 
@@ -45,6 +46,7 @@ public class TrackingPreferences extends PreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 mDurationPreference.setSummary(newValue.toString());
+                Log.d("Value: ", newValue.toString());
                 mSharedPreferences.edit().putString(Constants.PREF_DURATION_SETTINGS, newValue.toString()).apply();
                 return true;
             }

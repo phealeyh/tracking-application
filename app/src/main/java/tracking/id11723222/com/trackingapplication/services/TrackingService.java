@@ -70,8 +70,8 @@ public class TrackingService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        int mDuration = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS, ""));
-        int mInterval = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS,""));
+        int mDuration = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS, Integer.toString(Constants.FIRST_DURATION)));
+        int mInterval = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS,Integer.toString(Constants.FIRST_INTERVAL)));
         int mMaxValue = mDuration / mInterval;
         String timeUnit = mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS, Constants.FIRST_TIME);
 
@@ -79,6 +79,7 @@ public class TrackingService extends IntentService {
             try {
                 //handle seconds case
                 if(timeUnit.equals(Constants.FIRST_TIME)){
+                    Log.d("Value: ", "SECONDS HIT");
                     Thread.sleep(Constants.MILLISECONDS_TO_SECONDS * mInterval);
                 }
                 //handle minutes case
@@ -114,7 +115,13 @@ public class TrackingService extends IntentService {
     private LatLng getCurrentLocation(){
         Context mContext = getApplicationContext();
         LocationManager mManager = (LocationManager)mContext.getSystemService(mContext.LOCATION_SERVICE);
+        if(mManager == null){
+            Log.d("mManager is null", "Null object");
+        }
         Location currentLocation = mManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if (currentLocation == null){
+            Log.d("currentLocation is null", "Null object");
+        }
         return new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
     }
 
