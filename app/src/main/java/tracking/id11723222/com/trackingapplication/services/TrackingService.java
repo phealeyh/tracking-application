@@ -115,13 +115,7 @@ public class TrackingService extends IntentService {
     private LatLng getCurrentLocation(){
         Context mContext = getApplicationContext();
         LocationManager mManager = (LocationManager)mContext.getSystemService(mContext.LOCATION_SERVICE);
-        if(mManager == null){
-            Log.d("mManager is null", "Null object");
-        }
         Location currentLocation = mManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if (currentLocation == null){
-            Log.d("currentLocation is null", "Null object");
-        }
         return new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
     }
 
