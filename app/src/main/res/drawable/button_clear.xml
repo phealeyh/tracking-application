@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_focused="true"
+        android:drawable="@drawable/abc_btn_borderless_material"
+        /> <!-- focused -->
+    <item
+        android:drawable="@drawable/ic_clear_24dp"
+        /> <!-- default -->
+
+</selector>
