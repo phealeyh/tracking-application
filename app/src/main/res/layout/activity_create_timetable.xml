@@ -10,24 +10,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout1"
+        android:weightSum="1">
 
-        <Button
-            android:layout_width="190dp"
+        <ImageButton
+            android:src="@drawable/button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/create_entry"
-            android:id="@+id/submit_button"
             android:onClick="onSubmitClicked"
+            android:id="@+id/imageButton"
              />
 
-        <Button
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:text="@string/clear_entry"
-            android:id="@+id/clear_all_button"
-            android:onClick="onClearClicked"
-            />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout1">
+
+        <ImageButton
+            android:src="@drawable/button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="onClearClicked"
+            android:id="@+id/imageButton2"
+             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_alignParentTop="true"></LinearLayout>
 
 
 </RelativeLayout>

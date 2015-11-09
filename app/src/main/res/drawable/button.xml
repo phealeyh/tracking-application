@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_pressed="true"
+        android:drawable="@drawable/mr_ic_audio_vol"
+        /> <!-- pressed -->
+    <item
+        android:state_focused="true"
+        android:drawable="@drawable/abc_btn_borderless_material"
+        /> <!-- focused -->
+    <item
+        android:drawable="@drawable/mr_ic_media_route_mono_light"
+        /> <!-- default -->
+
+</selector>
