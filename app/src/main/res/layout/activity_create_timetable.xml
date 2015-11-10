@@ -96,6 +96,7 @@
             android:layout_marginTop="58dp" />
 
         <EditText
+            android:hint="@string/date_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="none"
@@ -106,6 +107,7 @@
             android:layout_alignStart="@+id/time_field" />
 
         <EditText
+            android:hint="@string/time_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="none"
@@ -125,7 +127,7 @@
             android:layout_toEndOf="@+id/location_view" />
 
         <MultiAutoCompleteTextView
-            android:text="@string/location_format"
+            android:hint="@string/location_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="13"

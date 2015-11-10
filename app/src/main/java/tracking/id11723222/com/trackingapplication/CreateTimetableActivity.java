@@ -114,9 +114,6 @@ public class CreateTimetableActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setLocationListener(){
-        LocationQuery findLocation = new LocationQuery();
-    }
 
 
     /**
@@ -264,31 +261,5 @@ public class CreateTimetableActivity extends AppCompatActivity {
 
     }
 
-    private class LocationQuery implements GeoDataApi{
-
-        private LocationQuery(){
-
-        }
-
-        @Override
-        public PendingResult<PlaceBuffer> addPlace(GoogleApiClient googleApiClient, AddPlaceRequest addPlaceRequest) {
-            return null;
-        }
-
-        @Override
-        public PendingResult<PlaceBuffer> getPlaceById(GoogleApiClient googleApiClient, String... strings) {
-            return null;
-        }
-
-        @Override
-        public PendingResult<AutocompletePredictionBuffer> getAutocompletePredictions(GoogleApiClient googleApiClient, String s, LatLngBounds latLngBounds, AutocompleteFilter autocompleteFilter) {
-            return null;
-        }
-
-        @Override
-        public PendingResult<PlacePhotoMetadataResult> getPlacePhotos(GoogleApiClient googleApiClient, String s) {
-            return null;
-        }
-    }
 
 }
