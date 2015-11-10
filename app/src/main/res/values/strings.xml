@@ -23,7 +23,7 @@
     <string name="elapsed_time">Elapsed Time</string>
     <string name="reason">Reason</string>
     <string name="date_format">dd/mm/yyyy</string>
-    <string name="time_format">HH:MM:SS</string>
+    <string name="time_format">HH:MM</string>
     <string name="location_format">Num/Street-Sub-State</string>
 
     <string-array name="reasons">
@@ -32,10 +32,6 @@
         <item>Gym</item>
         <item>Home</item>
         <item>Other</item>
-    </string-array>
-    <string-array name="time">
-        <item>AM</item>
-        <item>PM</item>
     </string-array>
     <string-array name="intervals">
         <item>5</item>

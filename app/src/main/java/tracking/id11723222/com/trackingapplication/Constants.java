@@ -13,6 +13,9 @@ public class Constants {
     public static final String STARTED = "Tracking Service Started";
     public static final String ERROR = "Error: ";
     public static final String BLANK_STATE = " ";
+    public static final String DATE_FORMAT = "dd-MM-yyyy";
+    public static final String TIME_SET ="TIME SET";
+    public static final String DATE_SET ="DATE SET";
     public static final String CLEARED_TEXT = "Cleared";
     public static final String ADD_CLICKED_EXCEPTION = "onAddClicked Exception: ";
     public static final String COMPARED_TO = " compared to ";

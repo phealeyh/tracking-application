@@ -1,6 +1,7 @@
 package tracking.id11723222.com.trackingapplication;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,10 +13,14 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Formatter;
 
 import tracking.id11723222.com.trackingapplication.model.ReminderData;
 import tracking.id11723222.com.trackingapplication.model.ReminderDatabaseHelper;
@@ -33,6 +38,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_timetable);
         setDateListener();
+        setTimeListener();
     }
 
 
@@ -83,23 +89,27 @@ public class CreateTimetableActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    /**
+     * This function will set the date edit text field to open up a new
+     * DatePickerDialog once the user clicks on the field. When a user selects
+     * a date from the dialog, it sets that text in the edit text field.
+     */
+
     private void setDateListener(){
-        final Context mContext = this;
         final Calendar myDate = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener(){
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                myDate.set(Calendar.YEAR,year);
-                myDate.set(Calendar.MONTH,monthOfYear);
-                myDate.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                changeDate(year, monthOfYear, dayOfMonth);
+                Toast.makeText(CreateTimetableActivity.this,Constants.DATE_SET,Toast.LENGTH_SHORT).show();
             }
         };
         EditText dateField = (EditText) findViewById(R.id.date_field);
         dateField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "date field clicked", Toast.LENGTH_SHORT).show();
-                new DatePickerDialog(mContext, dateListener, myDate
+                new DatePickerDialog(CreateTimetableActivity.this, dateListener, myDate
                         .get(Calendar.YEAR), myDate.get(Calendar.MONTH),
                         myDate.get(Calendar.DAY_OF_MONTH)).show();
 
@@ -108,12 +118,92 @@ public class CreateTimetableActivity extends AppCompatActivity {
 
     }
 
-    private void showDateDialog(Calendar myDate, DatePickerDialog.OnDateSetListener dateListener){
-        new DatePickerDialog(getApplicationContext(), dateListener, myDate
-                .get(Calendar.YEAR), myDate.get(Calendar.MONTH),
-                myDate.get(Calendar.DAY_OF_MONTH)).show();
+    /**
+     * This function will set the time edit text field to open up a new
+     * TimePickerDialog once the user clicks on the field. When a user selects a given
+     * time from the dialog, it sets that time to the edit text's field.
+     */
+
+    private void setTimeListener(){
+        final Time currentTime = new Time(System.currentTimeMillis());
+        final TimePickerDialog.OnTimeSetListener timeListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                changeTime(hourOfDay, minute);
+                Toast.makeText(CreateTimetableActivity.this,Constants.TIME_SET,Toast.LENGTH_SHORT).show();
+            }
+        };
+        EditText dateField = (EditText) findViewById(R.id.time_field);
+        dateField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new TimePickerDialog(CreateTimetableActivity.this, timeListener, currentTime.getHours(),
+                        currentTime.getMinutes(), false).show();
+            }
+        });
+
+
     }
 
+
+    /**
+     * Helper method that sets the edit text date field to the paramaters given.
+     * @param year
+     * @param monthOfYear
+     * @param dayOfMonth
+     */
+
+    private void changeDate(int year, int monthOfYear, int dayOfMonth){
+        String formattedDate = dayOfMonth + "/" + monthOfYear + "/"  + year;
+        EditText dateField = (EditText) findViewById(R.id.date_field);
+        dateField.setText(formattedDate, TextView.BufferType.EDITABLE);
+    }
+    /**
+     * Helper method that sets the edit text time field to the paramaters given.
+     * @param hourOfDay
+     * @param minute
+     */
+
+    private void changeTime(int hourOfDay, int minute){
+        String formattedDate = hourOfDay + ":" + minute;
+        EditText timeField = (EditText) findViewById(R.id.time_field);
+        timeField.setText(formattedDate, TextView.BufferType.EDITABLE);
+    }
+
+
+
+    /**
+     * Gets all of the data from the respective edit text fields and will create a new reminderData
+     * based on this information. Once the object is created, it will be pushed into the table
+     * with the helper of the database helper.
+     */
+
+    private void createEntry() {
+        try {
+            EditText timeET = (EditText) findViewById(R.id.time_field);
+            EditText locationET = (EditText) findViewById(R.id.location_field);
+            EditText dateET = (EditText) findViewById(R.id.date_field);
+            Spinner reasonET = (Spinner) findViewById(R.id.reason_box);
+            ReminderData reminderData = new ReminderData(Constants.ZERO, locationET.getText().toString(),
+                    dateET.getText().toString(), timeET.getText().toString(), reasonET.getSelectedItem().toString());
+            ReminderDatabaseHelper.get(this).addReminder(reminderData);
+        } catch (Exception ex) {
+            Log.e(Constants.ERROR, Constants.ADD_CLICKED_EXCEPTION, ex);
+        }
+
+    }
+
+
+
+    /**
+     * This will clear the text fields and show a toast that states that it has been cleared
+     *
+     *@param view
+     */
+    public void onClearClicked(View view) {
+        Toast.makeText(this, Constants.CLEARED_TEXT, Toast.LENGTH_LONG).show();
+        resetFields();
+    }
 
     /**
      *Once a user has submitted an entry, the entry will be put into the database
@@ -125,58 +215,6 @@ public class CreateTimetableActivity extends AppCompatActivity {
     public void onSubmitClicked(View view) {
         Toast.makeText(this, Constants.ENTRY_CREATED, Toast.LENGTH_SHORT).show();
         createEntry();
-        resetFields();
-    }
-
-    /**
-     * Gets all of the data from the respective edit text fields and will create a new reminderData
-     * based on this information. Once the object is created, it will be pushed into the table
-     * with the helper of the database helper.
-     */
-
-    private void createEntry() {
-        try {
-            String actual_time = getTime();
-            EditText locationET = (EditText) findViewById(R.id.location_field);
-            EditText dateET = (EditText) findViewById(R.id.date_field);
-            Spinner reasonET = (Spinner) findViewById(R.id.reason_box);
-            ReminderData reminderData = new ReminderData(Constants.ZERO, locationET.getText().toString(),
-                    dateET.getText().toString(), actual_time, reasonET.getSelectedItem().toString());
-            ReminderDatabaseHelper.get(this).addReminder(reminderData);
-            Time currentTime = new Time(Calendar.getInstance().getTimeInMillis());
-        } catch (Exception ex) {
-            Log.e(Constants.ERROR, Constants.ADD_CLICKED_EXCEPTION, ex);
-        }
-
-    }
-
-    /**
-     * Private helper method that will be used to get the time plus the selected meridian value
-     * from the spinner box.
-     * @return String
-     */
-
-    private String getTime() {
-        String[] timeTypes = getResources().getStringArray(R.array.time);
-        EditText timeET = (EditText) findViewById(R.id.time_field);
-        Spinner timeType = (Spinner) findViewById(R.id.time_box);
-        //equal to AM string
-        if (timeTypes[Constants.ZERO].equals(timeType.toString())) {
-            //return time plus meridiem
-            return timeET.getText().toString() + Constants.BLANK_STATE + timeTypes[Constants.ZERO];
-        } else {
-            //return time plus meridiem
-            return timeET.getText().toString() + Constants.BLANK_STATE + timeTypes[Constants.ONE];
-        }
-    }
-
-    /**
-     * This will clear the text fields and show a toast that states that it has been cleared
-     *
-     *@param view
-     */
-    public void onClearClicked(View view) {
-        Toast.makeText(this, Constants.CLEARED_TEXT, Toast.LENGTH_LONG).show();
         resetFields();
     }
 
@@ -193,8 +231,6 @@ public class CreateTimetableActivity extends AppCompatActivity {
         text.setText(Constants.BLANK_STATE);
         text = (EditText) findViewById(R.id.time_field);
         text.setText(Constants.BLANK_STATE);
-        spinner.setSelection(Constants.ZERO); //sets spinner array to the first element
-        spinner = (Spinner) findViewById(R.id.time_box);
         spinner.setSelection(Constants.ZERO); //sets spinner array to the first element
 
     }
