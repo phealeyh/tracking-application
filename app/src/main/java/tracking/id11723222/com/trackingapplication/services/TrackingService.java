@@ -5,19 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.sql.Time;
 
 import tracking.id11723222.com.trackingapplication.Constants;
-import tracking.id11723222.com.trackingapplication.TimeUnit;
 
 /**
  * Created by phealeyhang on 1/11/15.

@@ -7,15 +7,29 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.location.places.AddPlaceRequest;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.AutocompletePredictionBuffer;
+import com.google.android.gms.location.places.GeoDataApi;
+import com.google.android.gms.location.places.PlaceBuffer;
+import com.google.android.gms.location.places.PlacePhotoMetadataResult;
+import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -39,6 +53,17 @@ public class CreateTimetableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_timetable);
         setDateListener();
         setTimeListener();
+        setAutoCompleteFeature();
+    }
+
+    private void setAutoCompleteFeature(){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, new String[]{"Australia", "Australoid" , "Belgium","Cambodia","United States of America"});
+        MultiAutoCompleteTextView textView = (MultiAutoCompleteTextView)
+                findViewById(R.id.location_field);
+        textView.setAdapter(adapter);
+        textView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
     }
 
 
@@ -89,6 +114,10 @@ public class CreateTimetableActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setLocationListener(){
+        LocationQuery findLocation = new LocationQuery();
+    }
+
 
     /**
      * This function will set the date edit text field to open up a new
@@ -105,7 +134,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
                 Toast.makeText(CreateTimetableActivity.this,Constants.DATE_SET,Toast.LENGTH_SHORT).show();
             }
         };
-        EditText dateField = (EditText) findViewById(R.id.date_field);
+        final EditText dateField = (EditText) findViewById(R.id.date_field);
         dateField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,8 +162,8 @@ public class CreateTimetableActivity extends AppCompatActivity {
                 Toast.makeText(CreateTimetableActivity.this,Constants.TIME_SET,Toast.LENGTH_SHORT).show();
             }
         };
-        EditText dateField = (EditText) findViewById(R.id.time_field);
-        dateField.setOnClickListener(new View.OnClickListener() {
+        final EditText timeField = (EditText) findViewById(R.id.time_field);
+        timeField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new TimePickerDialog(CreateTimetableActivity.this, timeListener, currentTime.getHours(),
@@ -233,6 +262,33 @@ public class CreateTimetableActivity extends AppCompatActivity {
         text.setText(Constants.BLANK_STATE);
         spinner.setSelection(Constants.ZERO); //sets spinner array to the first element
 
+    }
+
+    private class LocationQuery implements GeoDataApi{
+
+        private LocationQuery(){
+
+        }
+
+        @Override
+        public PendingResult<PlaceBuffer> addPlace(GoogleApiClient googleApiClient, AddPlaceRequest addPlaceRequest) {
+            return null;
+        }
+
+        @Override
+        public PendingResult<PlaceBuffer> getPlaceById(GoogleApiClient googleApiClient, String... strings) {
+            return null;
+        }
+
+        @Override
+        public PendingResult<AutocompletePredictionBuffer> getAutocompletePredictions(GoogleApiClient googleApiClient, String s, LatLngBounds latLngBounds, AutocompleteFilter autocompleteFilter) {
+            return null;
+        }
+
+        @Override
+        public PendingResult<PlacePhotoMetadataResult> getPlacePhotos(GoogleApiClient googleApiClient, String s) {
+            return null;
+        }
     }
 
 }

@@ -48,9 +48,10 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout2"
+        android:weightSum="1"
         android:layout_alignParentTop="true"
-        android:weightSum="1">
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/linearLayout2">
 
         <TextView
             android:layout_width="wrap_content"
@@ -58,8 +59,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/location"
             android:id="@+id/location_view"
-            android:layout_alignBottom="@+id/location_field"
-            android:layout_alignParentLeft="true"
+            android:layout_marginTop="72dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
         <TextView
@@ -95,18 +96,6 @@
             android:layout_marginTop="58dp" />
 
         <EditText
-            android:textColor="@color/gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPostalAddress"
-            android:ems="10"
-            android:id="@+id/location_field"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
-        <EditText
-            android:text="@string/date_format"
-            android:textColor="@color/gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="none"
@@ -114,20 +103,17 @@
             android:ems="10"
             android:id="@+id/date_field"
             android:layout_alignBottom="@+id/date_view"
-            android:layout_alignStart="@+id/location_field" />
+            android:layout_alignStart="@+id/time_field" />
 
         <EditText
-            android:text="@string/time_format"
-            android:textColor="@color/gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="time"
+            android:inputType="none"
+            android:editable="false"
             android:ems="10"
             android:id="@+id/time_field"
             android:layout_alignBottom="@+id/time_view"
-            android:layout_alignLeft="@+id/date_field"
-            android:layout_alignStart="@+id/date_field"
-             />
+            android:layout_alignStart="@+id/reason_box" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -136,7 +122,16 @@
             android:spinnerMode="dropdown"
             android:entries="@array/reasons"
             android:layout_alignTop="@+id/reason_view"
-            android:layout_alignStart="@+id/time_field" />
+            android:layout_toEndOf="@+id/location_view" />
+
+        <MultiAutoCompleteTextView
+            android:text="@string/location_format"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="13"
+            android:id="@+id/location_field"
+            android:layout_above="@+id/date_view"
+            android:layout_toEndOf="@+id/location_view" />
 
 
     </RelativeLayout>

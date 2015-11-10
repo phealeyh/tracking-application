@@ -24,7 +24,7 @@
     <string name="reason">Reason</string>
     <string name="date_format">dd/mm/yyyy</string>
     <string name="time_format">HH:MM</string>
-    <string name="location_format">Num/Street-Sub-State</string>
+    <string name="location_format">Number-Street-Suburb-State</string>
 
     <string-array name="reasons">
         <item>Work</item>
@@ -128,9 +128,6 @@
 
 
 
-    <string name="first_time">Seconds</string>
-    <string name="first_duration">15</string>
-    <string name="first_interval">5</string>
 
 
 
