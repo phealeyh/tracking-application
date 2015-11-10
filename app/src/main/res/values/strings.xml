@@ -23,6 +23,9 @@
     <string name="elapsed_time">Elapsed Time</string>
     <string name="reason">Reason</string>
     <string name="date_format">dd/mm/yyyy</string>
+    <string name="time_format">HH:MM:SS</string>
+    <string name="location_format">Num/Street-Sub-State</string>
+
     <string-array name="reasons">
         <item>Work</item>
         <item>Meeting</item>

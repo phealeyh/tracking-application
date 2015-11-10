@@ -17,6 +17,7 @@
     <item name="black" type="color">#000000</item>
     <item name="lightgreen" type="color">#66BB6A</item>
     <item name="bluepurple" type="color">#5C6BC0</item>
+    <item name="gray" type="color">#c5c5ca</item>
 
     <integer-array name="androidcolors">
         <item>@color/bluepurple</item>

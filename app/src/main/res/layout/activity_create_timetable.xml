@@ -18,9 +18,10 @@
             android:src="@drawable/button_clear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onClearClicked"
-            android:id="@+id/clearButton"
-             />
+            android:onClick="onSubmitClicked"
+            android:id="@+id/submitButton"
+
+            />
 
     </LinearLayout>
 
@@ -35,10 +36,11 @@
             android:src="@drawable/button_create"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="onSubmitClicked"
-            android:id="@+id/submitButton"
+            android:onClick="onClearClicked"
+            android:id="@+id/clearButton"
 
-             />
+
+            />
     </LinearLayout>
 
     <RelativeLayout
@@ -93,26 +95,31 @@
             android:layout_alignParentStart="true" />
 
         <EditText
+            android:text="@string/location_format"
+            android:textColor="@color/gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPostalAddress"
             android:ems="10"
             android:id="@+id/location_field"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_centerHorizontal="true" />
 
         <EditText
+            android:text="@string/date_format"
+            android:textColor="@color/gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="date"
+            android:inputType="none"
+            android:editable="false"
             android:ems="10"
             android:id="@+id/date_field"
-            android:layout_above="@+id/time_view"
-            android:layout_alignRight="@+id/location_field"
-            android:layout_alignEnd="@+id/location_field" />
+            android:layout_alignBottom="@+id/date_view"
+            android:layout_alignStart="@+id/location_field" />
 
         <EditText
+            android:text="@string/time_format"
+            android:textColor="@color/gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="time"
@@ -130,18 +137,18 @@
             android:spinnerMode="dropdown"
             android:entries="@array/reasons"
             android:layout_centerVertical="true"
-            android:layout_alignLeft="@+id/time_field"
             android:layout_alignStart="@+id/time_field" />
-
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/time_box"
             android:spinnerMode="dropdown"
             android:entries="@array/time"
-            android:layout_alignTop="@+id/time_view"
-            android:layout_toRightOf="@+id/time_field"
-            android:layout_toEndOf="@+id/time_field" />
+            android:layout_alignBottom="@+id/time_field"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/time_field"
+            android:layout_alignTop="@+id/time_field" />
+
 
 
     </RelativeLayout>

@@ -1,5 +1,7 @@
 package tracking.id11723222.com.trackingapplication;
 
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_timetable);
+        setDateListener();
     }
 
 
@@ -78,6 +81,37 @@ public class CreateTimetableActivity extends AppCompatActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setDateListener(){
+        final Context mContext = this;
+        final Calendar myDate = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener(){
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                myDate.set(Calendar.YEAR,year);
+                myDate.set(Calendar.MONTH,monthOfYear);
+                myDate.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+            }
+        };
+        EditText dateField = (EditText) findViewById(R.id.date_field);
+        dateField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "date field clicked", Toast.LENGTH_SHORT).show();
+                new DatePickerDialog(mContext, dateListener, myDate
+                        .get(Calendar.YEAR), myDate.get(Calendar.MONTH),
+                        myDate.get(Calendar.DAY_OF_MONTH)).show();
+
+            }
+        });
+
+    }
+
+    private void showDateDialog(Calendar myDate, DatePickerDialog.OnDateSetListener dateListener){
+        new DatePickerDialog(getApplicationContext(), dateListener, myDate
+                .get(Calendar.YEAR), myDate.get(Calendar.MONTH),
+                myDate.get(Calendar.DAY_OF_MONTH)).show();
     }
 
 
@@ -145,6 +179,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
         Toast.makeText(this, Constants.CLEARED_TEXT, Toast.LENGTH_LONG).show();
         resetFields();
     }
+
 
     /**
      * Basically resets the EditText view fields to a blank state while also setting the spinner
