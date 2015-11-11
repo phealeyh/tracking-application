@@ -2,17 +2,14 @@ package tracking.id11723222.com.trackingapplication;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
@@ -21,25 +18,17 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.location.places.AddPlaceRequest;
-import com.google.android.gms.location.places.AutocompleteFilter;
-import com.google.android.gms.location.places.AutocompletePredictionBuffer;
-import com.google.android.gms.location.places.GeoDataApi;
-import com.google.android.gms.location.places.PlaceBuffer;
-import com.google.android.gms.location.places.PlacePhotoMetadataResult;
-import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Formatter;
 
 import tracking.id11723222.com.trackingapplication.model.ReminderData;
 import tracking.id11723222.com.trackingapplication.model.ReminderDatabaseHelper;
 
-public class CreateTimetableActivity extends AppCompatActivity {
+public class CreateTimetableActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+
 
     /**
      * This will set the layout to the activity_create_timetable.
@@ -51,6 +40,7 @@ public class CreateTimetableActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_timetable);
+
         setDateListener();
         setTimeListener();
         setAutoCompleteFeature();
@@ -59,11 +49,11 @@ public class CreateTimetableActivity extends AppCompatActivity {
     private void setAutoCompleteFeature(){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, new String[]{"Australia", "Australoid" , "Belgium","Cambodia","United States of America"});
-        MultiAutoCompleteTextView textView = (MultiAutoCompleteTextView)
+        MultiAutoCompleteTextView locationView = (MultiAutoCompleteTextView)
                 findViewById(R.id.location_field);
-        textView.setAdapter(adapter);
-        textView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-
+        locationView.setAdapter(adapter);
+        locationView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        //set array adapter
     }
 
 
@@ -260,6 +250,21 @@ public class CreateTimetableActivity extends AppCompatActivity {
         spinner.setSelection(Constants.ZERO); //sets spinner array to the first element
 
     }
+
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.e("TAG: ", "onConnectionFailed: ConnectionResult.getErrorCode() = "
+                + connectionResult.getErrorCode());
+
+        // TODO(Developer): Check error code and notify the user of error state and resolution.
+        Toast.makeText(this,
+                "Could not connect to Google API Client: Error " + connectionResult.getErrorCode(),
+                Toast.LENGTH_SHORT).show();
+
+    }
+
+
 
 
 }

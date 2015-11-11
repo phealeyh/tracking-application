@@ -65,7 +65,6 @@ public class TrackingActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.home_settings) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
