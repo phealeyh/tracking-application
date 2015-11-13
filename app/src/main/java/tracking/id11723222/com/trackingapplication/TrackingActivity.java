@@ -101,6 +101,7 @@ public class TrackingActivity extends AppCompatActivity {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mIntervalChronomter.start();
                 startService(new Intent(getApplicationContext(),TrackingService.class));
                 //start service
                 Toast.makeText(getApplicationContext(),Constants.STARTED,Toast.LENGTH_LONG).show();
@@ -162,8 +163,6 @@ public class TrackingActivity extends AppCompatActivity {
     private void setChronometer(){
         mIntervalChronomter = (Chronometer) findViewById(R.id.interval_timer);
         //set it to the interval given
-        mIntervalChronomter.setBase(5000L);
-        mIntervalChronomter.start();
     }
 
     /**
@@ -178,7 +177,6 @@ public class TrackingActivity extends AppCompatActivity {
             updateLocations(intent);
             updateTimes(intent);
             Toast.makeText(getApplicationContext(), Constants.UPDATE_COMMAND, Toast.LENGTH_SHORT).show();
-            mIntervalChronomter.setBase(5000L);
         }
     };
 
