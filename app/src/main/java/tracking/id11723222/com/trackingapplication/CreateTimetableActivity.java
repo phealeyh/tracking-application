@@ -104,7 +104,6 @@ public class CreateTimetableActivity extends AppCompatActivity implements Google
             return true;
         }
 
-
         return super.onOptionsItemSelected(item);
     }
 

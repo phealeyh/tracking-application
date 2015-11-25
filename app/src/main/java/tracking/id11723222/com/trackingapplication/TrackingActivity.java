@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,13 +35,11 @@ public class TrackingActivity extends AppCompatActivity {
     private ArrayAdapter<LatLng> locationAdapter;
     private ArrayAdapter<Time> timeAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracking);
         setButtonListeners();
-        //set for later
         setChronometer();
         locations = new ArrayList<LatLng>();
         times = new ArrayList<Time>();
@@ -52,6 +51,7 @@ public class TrackingActivity extends AppCompatActivity {
         mLocationListView.setAdapter(locationAdapter);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.UPDATE_COMMAND);
+        intentFilter.addAction(Constants.FINISH_COMMAND);
         registerReceiver(mBroadcastReceiver, intentFilter);
 
     }
@@ -101,8 +101,8 @@ public class TrackingActivity extends AppCompatActivity {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mIntervalChronomter.start();
-                startService(new Intent(getApplicationContext(),TrackingService.class));
+                startStopWatch();
+                startService(new Intent(getApplicationContext(), TrackingService.class));
                 //start service
                 Toast.makeText(getApplicationContext(),Constants.STARTED,Toast.LENGTH_LONG).show();
             }
@@ -129,6 +129,7 @@ public class TrackingActivity extends AppCompatActivity {
     private void clearTimes(){
         times.clear();
         timeAdapter.notifyDataSetChanged();
+
     }
 
     private void clearLocations(){
@@ -162,7 +163,6 @@ public class TrackingActivity extends AppCompatActivity {
      */
     private void setChronometer(){
         mIntervalChronomter = (Chronometer) findViewById(R.id.interval_timer);
-        //set it to the interval given
     }
 
     /**
@@ -173,12 +173,33 @@ public class TrackingActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(Constants.ENTRY_CREATED, Constants.UPDATE_COMMAND);
-            updateLocations(intent);
-            updateTimes(intent);
-            Toast.makeText(getApplicationContext(), Constants.UPDATE_COMMAND, Toast.LENGTH_SHORT).show();
+            if(intent.getAction().equals(Constants.UPDATE_COMMAND)){
+                updateLocations(intent);
+                updateTimes(intent);
+                Toast.makeText(getApplicationContext(), Constants.UPDATE_COMMAND, Toast.LENGTH_SHORT).show();
+                startStopWatch();
+            }
+            else if(intent.getAction().equals(Constants.FINISH_COMMAND)){
+                Toast.makeText(getApplicationContext(), Constants.FINISH_COMMAND, Toast.LENGTH_SHORT).show();
+                stopStopWatch();
+            }
+
         }
     };
+
+
+
+    private void startStopWatch(){
+        mIntervalChronomter.setBase(SystemClock.elapsedRealtime());
+        mIntervalChronomter.start();
+
+    }
+
+    private void stopStopWatch(){
+        mIntervalChronomter.setBase(SystemClock.elapsedRealtime());
+        mIntervalChronomter.stop();
+
+    }
 
 
 

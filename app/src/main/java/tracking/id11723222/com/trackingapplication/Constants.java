@@ -29,6 +29,7 @@ public class Constants {
     public static final String DURATION = "Duration";
     public static final String TIME = "Time";
     public static final String UPDATE_COMMAND = "Updating";
+    public static final String FINISH_COMMAND = "Finish";
     public static final String CLEARED = "Recorded times and locations cleared";
     public static final String INTENT_SERVICE_NAME = "Tracking Service";
     public static final String PREF_TIME_SETTINGS = "pref_time_settings";

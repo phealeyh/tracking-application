@@ -40,9 +40,6 @@ public class TrackingService extends IntentService {
         super(name);
     }
 
-    private void setTimerValues(){
-
-    }
 
     /**
      *Destroy service
@@ -76,7 +73,6 @@ public class TrackingService extends IntentService {
             try {
                 //handle seconds case
                 if(timeUnit.equals(Constants.FIRST_TIME)){
-                    Log.d("Value: ", "SECONDS HIT");
                     Thread.sleep(Constants.MILLISECONDS_TO_SECONDS * mInterval);
                 }
                 //handle minutes case
@@ -92,7 +88,14 @@ public class TrackingService extends IntentService {
                 e.printStackTrace();
             }
         }while((--mMaxValue) > 0);
+        finishCommand();
+    }
 
+
+    private void finishCommand(){
+        Intent newIntent = new Intent();
+        newIntent.setAction(Constants.FINISH_COMMAND);
+        sendBroadcast(newIntent);
     }
 
     private void updateUserLocation(){
