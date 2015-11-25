@@ -46,7 +46,6 @@ public class TrackingPreferences extends PreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 mDurationPreference.setSummary(newValue.toString());
-                Log.d("Value: ", newValue.toString());
                 mSharedPreferences.edit().putString(Constants.PREF_DURATION_SETTINGS, newValue.toString()).apply();
                 return true;
             }

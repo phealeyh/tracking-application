@@ -4,8 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.SystemClock;
+import android.preference.ListPreference;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -41,6 +45,7 @@ public class TrackingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tracking);
         setButtonListeners();
         setChronometer();
+        setIntervalText();
         locations = new ArrayList<LatLng>();
         times = new ArrayList<Time>();
         mTimeListView = (ListView) findViewById(R.id.locations_list);
@@ -126,6 +131,16 @@ public class TrackingActivity extends AppCompatActivity {
         });
     }
 
+    private void setIntervalText(){
+        SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        TextView textView = (TextView)findViewById(R.id.interval_text);
+        String interval = "Target Interval: " +
+                mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS, Integer.toString(Constants.FIRST_INTERVAL)) +
+                " " +
+                mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS,Integer.toString(Constants.FIRST_DURATION));
+        textView.setText(interval);
+    }
+
     private void clearTimes(){
         times.clear();
         timeAdapter.notifyDataSetChanged();
@@ -181,9 +196,8 @@ public class TrackingActivity extends AppCompatActivity {
             }
             else if(intent.getAction().equals(Constants.FINISH_COMMAND)){
                 Toast.makeText(getApplicationContext(), Constants.FINISH_COMMAND, Toast.LENGTH_SHORT).show();
-                stopStopWatch();
+                setChronometerToZero();
             }
-
         }
     };
 
@@ -192,13 +206,11 @@ public class TrackingActivity extends AppCompatActivity {
     private void startStopWatch(){
         mIntervalChronomter.setBase(SystemClock.elapsedRealtime());
         mIntervalChronomter.start();
-
     }
 
-    private void stopStopWatch(){
+    private void setChronometerToZero(){
         mIntervalChronomter.setBase(SystemClock.elapsedRealtime());
         mIntervalChronomter.stop();
-
     }
 
 
