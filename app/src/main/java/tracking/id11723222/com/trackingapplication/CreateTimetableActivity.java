@@ -40,7 +40,6 @@ public class CreateTimetableActivity extends AppCompatActivity implements Google
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_timetable);
-
         setDateListener();
         setTimeListener();
         setAutoCompleteFeature();

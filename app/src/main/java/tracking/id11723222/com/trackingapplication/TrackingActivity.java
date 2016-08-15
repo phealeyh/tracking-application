@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.preference.ListPreference;
@@ -139,6 +140,7 @@ public class TrackingActivity extends AppCompatActivity {
                 " " +
                 mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS,Integer.toString(Constants.FIRST_DURATION));
         textView.setText(interval);
+        textView.setTextColor(Color.RED);
     }
 
     private void clearTimes(){
@@ -165,7 +167,6 @@ public class TrackingActivity extends AppCompatActivity {
     private void updateLocations(Intent intent){
         locations.add((LatLng) intent.getExtras().get(Constants.EXTRA_LOCATION));
         locationAdapter.notifyDataSetChanged();
-
     }
 
     private void updateTimes(Intent intent) {

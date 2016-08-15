@@ -15,6 +15,7 @@
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout1"
         android:weightSum="1">
+
         <Chronometer
             android:gravity="center"
             android:id="@+id/interval_timer"
@@ -27,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.50" />
+
     </LinearLayout>
 
 

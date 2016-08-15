@@ -38,7 +38,6 @@ public class ReminderDatabaseHelper extends SQLiteOpenHelper {
             // Make sure we're using the application context for a longer scope
             instance = new ReminderDatabaseHelper(context.getApplicationContext());
         }
-
         return instance;
     }
 
@@ -95,7 +94,6 @@ public class ReminderDatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-
         return list;
     }
 

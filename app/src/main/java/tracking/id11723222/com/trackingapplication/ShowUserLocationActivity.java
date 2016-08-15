@@ -72,7 +72,7 @@ public class ShowUserLocationActivity extends FragmentActivity implements OnMapR
      * obtained by the LocationManager. It will drop a pin at this location showing the user's
      * current position. If the marker is clicked, then the Latitude and Longitude values will
      * be shown.
-     *@param googleMap
+     * @param googleMap
      */
 
     @Override

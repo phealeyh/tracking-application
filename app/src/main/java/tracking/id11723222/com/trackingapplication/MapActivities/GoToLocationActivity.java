@@ -108,6 +108,7 @@ public class GoToLocationActivity extends FragmentActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap){
         List<Address> addresses;
+        Address address;
         geocoder = new Geocoder(this, Locale.getDefault());
         addresses = getLocationsFromSelectedItem();
         mMap = googleMap;

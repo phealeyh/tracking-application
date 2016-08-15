@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Range;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +19,7 @@ import android.widget.CursorAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,6 +27,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.location.FusedLocationProviderApi;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -31,6 +36,7 @@ import java.util.Locale;
 
 import tracking.id11723222.com.trackingapplication.model.ReminderData;
 import tracking.id11723222.com.trackingapplication.model.ReminderDatabaseHelper;
+import tracking.id11723222.com.trackingapplication.services.LocationRetriever;
 
 public class ShowMapWithTimetable extends FragmentActivity implements OnMapReadyCallback {
 
@@ -120,14 +126,19 @@ public class ShowMapWithTimetable extends FragmentActivity implements OnMapReady
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        ReminderData tempReminder = ReminderDatabaseHelper.get(this).getReminderDataList(null).get(Constants.INITIAL_LOCATION);
-        List<Address> addresses;
-        geocoder = new Geocoder(this, Locale.getDefault());
-        addresses = getLocationFromSelectedItem(Constants.INITIAL_LOCATION);
-        mMap = googleMap;
-        LatLng location = new LatLng(addresses.get(0).getLatitude(),addresses.get(Constants.ZERO).getLongitude());
-        mMap.addMarker(new MarkerOptions().position(location).title(tempReminder.getReason()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, Constants.ZOOM_LEVEL));
+        try {
+            ReminderData tempReminder = ReminderDatabaseHelper.get(this).getReminderDataList(null).get(Constants.INITIAL_LOCATION);
+            List<Address> addresses;
+            geocoder = new Geocoder(this, Locale.getDefault());
+            addresses = getLocationFromSelectedItem(Constants.INITIAL_LOCATION);
+            mMap = googleMap;
+            LatLng location = new LatLng(addresses.get(Constants.ZERO).getLatitude(), addresses.get(Constants.ZERO).getLongitude());
+            mMap.addMarker(new MarkerOptions().position(location).title(tempReminder.getReason()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, Constants.ZOOM_LEVEL));
+        } catch(Exception e) {
+            Log.e(Constants.BAD_LIST,Constants.BAD_LIST);
+            Toast.makeText(getApplicationContext(), Constants.EMPTY_LIST, Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -141,14 +152,14 @@ public class ShowMapWithTimetable extends FragmentActivity implements OnMapReady
 
 
     private List<Address> getLocationFromSelectedItem(int position){
-        List<Address> tempAddress = null;
         try {
             ReminderData tempReminder = ReminderDatabaseHelper.get(this).getReminderDataList(null).get(position);
-            tempAddress =  geocoder.getFromLocationName(tempReminder.getLocation(), Constants.ONE);
+            //problem line
+            return  geocoder.getFromLocationName(tempReminder.getLocation(), Constants.ONE);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return tempAddress;
+        return null;
     }
 
 
