@@ -180,6 +180,18 @@ public class ShowMapWithTimetable extends FragmentActivity implements OnMapReady
             mLocation = location;
             reminderList  = ReminderDatabaseHelper.get(ShowMapWithTimetable.this).getReminderDataList(null);
             currentPosition = Constants.ZERO;
+            setInitialCursor();
+        }
+
+        private void setInitialCursor(){
+            try {
+                ReminderData temp = reminderList.get(currentPosition);
+                changeCursor(ReminderDatabaseHelper.get(ShowMapWithTimetable.this).getReminderData(temp.getLocation()));
+            }
+            catch(Exception e){
+                Log.e("hello","dead");
+                Toast.makeText(getApplicationContext(), Constants.EMPTY_LIST, Toast.LENGTH_SHORT).show();
+            }
         }
 
         /**
@@ -206,7 +218,6 @@ public class ShowMapWithTimetable extends FragmentActivity implements OnMapReady
         public void bindView(View view, Context context, Cursor cursor) {
             // This is made "final" so that it can be referenced from within the anonymous OnClickListener below.
             final ReminderData reminderData = ((ReminderDatabaseHelper.ReminderCursor) cursor).getReminderData();
-
             TextView locationTV = (TextView) view.findViewById(R.id.list_item_location_textview);
             TextView dateTV = (TextView) view.findViewById(R.id.list_item_date_textview);
             TextView timeTV = (TextView) view.findViewById(R.id.list_item_time_textview);
