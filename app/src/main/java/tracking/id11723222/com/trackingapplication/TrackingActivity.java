@@ -212,6 +212,7 @@ public class TrackingActivity extends AppCompatActivity {
     private void setChronometerToZero(){
         mIntervalChronomter.setBase(SystemClock.elapsedRealtime());
         mIntervalChronomter.stop();
+        //hello
     }
 
 
