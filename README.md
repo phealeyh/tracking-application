@@ -3,4 +3,4 @@ This application will allow the user to keep a track of their reminders that are
 
 NOTE: The map features won't work unless you use your own API Key and register it with your SHA generated from your computer.
 Please head to:
-https://console.developers.google.com/apis?project=beaming-pillar-111000 and sign up for a google maps api key.
+https://console.developers.google.com and sign up for a google maps api key.
