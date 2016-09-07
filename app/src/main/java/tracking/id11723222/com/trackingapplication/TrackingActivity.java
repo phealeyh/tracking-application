@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.PersistableBundle;
 import android.os.SystemClock;
 import android.preference.ListPreference;
 import android.preference.PreferenceManager;
@@ -60,6 +61,12 @@ public class TrackingActivity extends AppCompatActivity {
         intentFilter.addAction(Constants.FINISH_COMMAND);
         registerReceiver(mBroadcastReceiver, intentFilter);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setIntervalText();
     }
 
     @Override
