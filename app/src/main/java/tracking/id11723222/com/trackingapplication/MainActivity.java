@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-
     /**
      * This will inflate the layout to the activity_main layout
      *
@@ -21,14 +20,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        PreferenceManager.setDefaultValues(this,R.xml.timer_settings,false);
         setContentView(R.layout.activity_main);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
 
