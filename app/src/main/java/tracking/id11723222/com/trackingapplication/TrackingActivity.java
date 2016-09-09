@@ -8,11 +8,9 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.SystemClock;
-import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,8 +47,8 @@ public class TrackingActivity extends AppCompatActivity {
         setIntervalText();
         locations = new ArrayList<LatLng>();
         times = new ArrayList<Time>();
-        mTimeListView = (ListView) findViewById(R.id.locations_list);
-        mLocationListView = (ListView) findViewById(R.id.times_list);
+        mTimeListView = (ListView) findViewById(R.id.times_list);
+        mLocationListView = (ListView) findViewById(R.id.locations_list);
         timeAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,times);
         locationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, locations);
         mTimeListView.setAdapter(timeAdapter);
@@ -86,8 +84,6 @@ public class TrackingActivity extends AppCompatActivity {
             startActivity(new Intent(this,TrackingPreferences.class));
             return true;
         }
-
-
 
         return super.onOptionsItemSelected(item);
     }

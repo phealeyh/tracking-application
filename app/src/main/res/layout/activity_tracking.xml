@@ -67,6 +67,16 @@
         android:id="@+id/linearLayout3">
 
         <ListView
+            android:layout_width="176dp"
+            android:layout_height="match_parent"
+            android:id="@+id/times_list"
+            android:stackFromBottom="false"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+        <ListView
             android:layout_width="177dp"
             android:layout_height="332dp"
             android:id="@+id/locations_list"
@@ -76,14 +86,6 @@
             android:layout_alignParentEnd="true" />
 
 
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/times_list"
-            android:stackFromBottom="false"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
 
 
 
