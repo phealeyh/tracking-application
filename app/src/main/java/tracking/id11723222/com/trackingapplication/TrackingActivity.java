@@ -26,17 +26,16 @@ import com.google.android.gms.maps.model.LatLng;
 import java.sql.Time;
 import java.util.ArrayList;
 
+import tracking.id11723222.com.trackingapplication.model.Location;
 import tracking.id11723222.com.trackingapplication.services.TrackingService;
 
 public class TrackingActivity extends AppCompatActivity {
 
     private Button mStartButton, mResetButton, mEmailButton;
     private Chronometer mIntervalChronomter;
-    private ListView mLocationListView, mTimeListView;
-    private ArrayList<LatLng> locations;
-    private ArrayList<Time> times;
-    private ArrayAdapter<LatLng> locationAdapter;
-    private ArrayAdapter<Time> timeAdapter;
+    private ListView mLocationListView;
+    private ArrayList<Location> locations;
+    private ArrayAdapter<Location> locationAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +44,9 @@ public class TrackingActivity extends AppCompatActivity {
         setButtonListeners();
         setChronometer();
         setIntervalText();
-        locations = new ArrayList<LatLng>();
-        times = new ArrayList<Time>();
-        mTimeListView = (ListView) findViewById(R.id.times_list);
+        locations = new ArrayList<Location>();
         mLocationListView = (ListView) findViewById(R.id.locations_list);
-        timeAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,times);
         locationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, locations);
-        mTimeListView.setAdapter(timeAdapter);
         mLocationListView.setAdapter(locationAdapter);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.UPDATE_COMMAND);
@@ -115,7 +110,6 @@ public class TrackingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),Constants.CLEARED,Toast.LENGTH_LONG).show();
                 clearLocations();
-                clearTimes();
             }
         });
         mEmailButton = (Button) findViewById(R.id.emailButton);
@@ -139,11 +133,6 @@ public class TrackingActivity extends AppCompatActivity {
         textView.setTextColor(Color.RED);
     }
 
-    private void clearTimes(){
-        times.clear();
-        timeAdapter.notifyDataSetChanged();
-
-    }
 
     private void clearLocations(){
         locations.clear();
@@ -154,21 +143,19 @@ public class TrackingActivity extends AppCompatActivity {
         Intent newIntent = new Intent(Intent.ACTION_SEND);
         newIntent.setData(Uri.parse(Constants.MAIL_TO));
         newIntent.putExtra(Intent.EXTRA_SUBJECT, Constants.RECORDED_LOCATIONS);
-        newIntent.putExtra(Intent.EXTRA_TEXT, locations.toString() + Constants.NEW_LINE + times.toString());
+        newIntent.putExtra(Intent.EXTRA_TEXT, locations.toString());
         newIntent.setType(Constants.EMAIL_FORMAT);
         startActivity(Intent.createChooser(newIntent, Constants.EMAIL_ON));
 
     }
 
     private void updateLocations(Intent intent){
-        locations.add((LatLng) intent.getExtras().get(Constants.EXTRA_LOCATION));
+        locations.add(new Location(
+                (LatLng) intent.getExtras().get(Constants.EXTRA_LOCATION),
+                (Time) intent.getExtras().get(Constants.TIME)));
         locationAdapter.notifyDataSetChanged();
     }
 
-    private void updateTimes(Intent intent) {
-        times.add((Time) intent.getExtras().get(Constants.TIME));
-        timeAdapter.notifyDataSetChanged();
-    }
 
     /**
      * Sets the chronometer to time the intervals given.
@@ -187,7 +174,6 @@ public class TrackingActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals(Constants.UPDATE_COMMAND)){
                 updateLocations(intent);
-                updateTimes(intent);
                 Toast.makeText(getApplicationContext(), Constants.UPDATE_COMMAND, Toast.LENGTH_SHORT).show();
                 startStopWatch();
             }
