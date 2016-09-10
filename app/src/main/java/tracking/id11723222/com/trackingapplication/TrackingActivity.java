@@ -38,7 +38,6 @@ public class TrackingActivity extends AppCompatActivity {
     private ArrayAdapter<Location> locationAdapter;
     private IntentFilter intentFilter;
     private Intent intent;
-    private long chronoTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,6 @@ public class TrackingActivity extends AppCompatActivity {
         setChronometer();
         setIntervalText();
 
-        chronoTime = 1000;
         intent = new Intent(getApplicationContext(), TrackingService.class);
         locations = new ArrayList<Location>();
         mLocationListView = (ListView) findViewById(R.id.locations_list);
