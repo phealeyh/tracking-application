@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.PersistableBundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -61,6 +62,12 @@ public class TrackingActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setIntervalText();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return super.onCreateOptionsMenu(menu);
@@ -78,6 +85,8 @@ public class TrackingActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        intent.setAction(Constants.FINISH_COMMAND);
+        sendBroadcast(intent);
         unregisterReceiver(mBroadcastReceiver);
     }
 
