@@ -68,6 +68,9 @@ public class TrackingService extends IntentService {
         int mInterval = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS,Integer.toString(Constants.FIRST_INTERVAL)));
         int mMaxValue = mDuration / mInterval;
         String timeUnit = mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS, Constants.FIRST_TIME);
+        Log.e("TIME:", "Duration: " + mDuration
+                        + " Interval: " + mInterval +
+                " Max Value: " + mMaxValue + " TimeUnit: " + timeUnit);
         do{
             try {
                 //handle seconds case
@@ -89,6 +92,7 @@ public class TrackingService extends IntentService {
         }while((--mMaxValue) > 0);
         finishCommand();
     }
+
 
 
     private void finishCommand(){

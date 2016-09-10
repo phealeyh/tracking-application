@@ -138,6 +138,9 @@ public class TrackingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),Constants.CLEARED,Toast.LENGTH_LONG).show();
                 clearLocations();
+
+                stopService(intent);
+
             }
         });
         mEmailButton = (Button) findViewById(R.id.emailButton);
