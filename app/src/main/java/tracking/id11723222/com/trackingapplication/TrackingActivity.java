@@ -36,6 +36,9 @@ public class TrackingActivity extends AppCompatActivity {
     private ListView mLocationListView;
     private ArrayList<Location> locations;
     private ArrayAdapter<Location> locationAdapter;
+    private IntentFilter intentFilter;
+    private Intent intent;
+    private long chronoTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +47,17 @@ public class TrackingActivity extends AppCompatActivity {
         setButtonListeners();
         setChronometer();
         setIntervalText();
+
+        chronoTime = 1000;
+        intent = new Intent(getApplicationContext(), TrackingService.class);
         locations = new ArrayList<Location>();
         mLocationListView = (ListView) findViewById(R.id.locations_list);
         locationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, locations);
         mLocationListView.setAdapter(locationAdapter);
-        IntentFilter intentFilter = new IntentFilter();
+        intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.UPDATE_COMMAND);
         intentFilter.addAction(Constants.FINISH_COMMAND);
+
         registerReceiver(mBroadcastReceiver, intentFilter);
 
     }
@@ -64,9 +71,18 @@ public class TrackingActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
+        registerReceiver(mBroadcastReceiver,intentFilter);
         setIntervalText();
-
     }
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mBroadcastReceiver);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -106,8 +122,8 @@ public class TrackingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startStopWatch();
-                startService(new Intent(getApplicationContext(), TrackingService.class));
                 //start service
+                startService(intent);
                 Toast.makeText(getApplicationContext(),Constants.STARTED,Toast.LENGTH_LONG).show();
             }
         });
@@ -202,6 +218,7 @@ public class TrackingActivity extends AppCompatActivity {
         mIntervalChronomter.setBase(SystemClock.elapsedRealtime());
         mIntervalChronomter.stop();
     }
+
 
 
 
