@@ -9,11 +9,9 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.PersistableBundle;
 import android.os.SystemClock;
-import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,17 +27,18 @@ import com.google.android.gms.maps.model.LatLng;
 import java.sql.Time;
 import java.util.ArrayList;
 
+import tracking.id11723222.com.trackingapplication.model.Location;
 import tracking.id11723222.com.trackingapplication.services.TrackingService;
 
 public class TrackingActivity extends AppCompatActivity {
 
     private Button mStartButton, mResetButton, mEmailButton;
     private Chronometer mIntervalChronomter;
-    private ListView mLocationListView, mTimeListView;
-    private ArrayList<LatLng> locations;
-    private ArrayList<Time> times;
-    private ArrayAdapter<LatLng> locationAdapter;
-    private ArrayAdapter<Time> timeAdapter;
+    private ListView mLocationListView;
+    private ArrayList<Location> locations;
+    private ArrayAdapter<Location> locationAdapter;
+    private IntentFilter intentFilter;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +47,16 @@ public class TrackingActivity extends AppCompatActivity {
         setButtonListeners();
         setChronometer();
         setIntervalText();
-        locations = new ArrayList<LatLng>();
-        times = new ArrayList<Time>();
-        mTimeListView = (ListView) findViewById(R.id.locations_list);
-        mLocationListView = (ListView) findViewById(R.id.times_list);
-        timeAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,times);
+
+        intent = new Intent(getApplicationContext(), TrackingService.class);
+        locations = new ArrayList<Location>();
+        mLocationListView = (ListView) findViewById(R.id.locations_list);
         locationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, locations);
-        mTimeListView.setAdapter(timeAdapter);
         mLocationListView.setAdapter(locationAdapter);
-        IntentFilter intentFilter = new IntentFilter();
+        intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.UPDATE_COMMAND);
         intentFilter.addAction(Constants.FINISH_COMMAND);
+
         registerReceiver(mBroadcastReceiver, intentFilter);
 
     }
@@ -74,6 +72,24 @@ public class TrackingActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main,menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        registerReceiver(mBroadcastReceiver,intentFilter);
+        setIntervalText();
+    }
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        intent.setAction(Constants.FINISH_COMMAND);
+        sendBroadcast(intent);
+        unregisterReceiver(mBroadcastReceiver);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -94,8 +110,6 @@ public class TrackingActivity extends AppCompatActivity {
             return true;
         }
 
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -115,8 +129,8 @@ public class TrackingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startStopWatch();
-                startService(new Intent(getApplicationContext(), TrackingService.class));
                 //start service
+                startService(intent);
                 Toast.makeText(getApplicationContext(),Constants.STARTED,Toast.LENGTH_LONG).show();
             }
         });
@@ -126,7 +140,6 @@ public class TrackingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),Constants.CLEARED,Toast.LENGTH_LONG).show();
                 clearLocations();
-                clearTimes();
             }
         });
         mEmailButton = (Button) findViewById(R.id.emailButton);
@@ -150,11 +163,6 @@ public class TrackingActivity extends AppCompatActivity {
         textView.setTextColor(Color.RED);
     }
 
-    private void clearTimes(){
-        times.clear();
-        timeAdapter.notifyDataSetChanged();
-
-    }
 
     private void clearLocations(){
         locations.clear();
@@ -165,21 +173,19 @@ public class TrackingActivity extends AppCompatActivity {
         Intent newIntent = new Intent(Intent.ACTION_SEND);
         newIntent.setData(Uri.parse(Constants.MAIL_TO));
         newIntent.putExtra(Intent.EXTRA_SUBJECT, Constants.RECORDED_LOCATIONS);
-        newIntent.putExtra(Intent.EXTRA_TEXT, locations.toString() + Constants.NEW_LINE + times.toString());
+        newIntent.putExtra(Intent.EXTRA_TEXT, locations.toString());
         newIntent.setType(Constants.EMAIL_FORMAT);
         startActivity(Intent.createChooser(newIntent, Constants.EMAIL_ON));
 
     }
 
     private void updateLocations(Intent intent){
-        locations.add((LatLng) intent.getExtras().get(Constants.EXTRA_LOCATION));
+        locations.add(new Location(
+                (LatLng) intent.getExtras().get(Constants.EXTRA_LOCATION),
+                (Time) intent.getExtras().get(Constants.TIME)));
         locationAdapter.notifyDataSetChanged();
     }
 
-    private void updateTimes(Intent intent) {
-        times.add((Time) intent.getExtras().get(Constants.TIME));
-        timeAdapter.notifyDataSetChanged();
-    }
 
     /**
      * Sets the chronometer to time the intervals given.
@@ -198,7 +204,6 @@ public class TrackingActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals(Constants.UPDATE_COMMAND)){
                 updateLocations(intent);
-                updateTimes(intent);
                 Toast.makeText(getApplicationContext(), Constants.UPDATE_COMMAND, Toast.LENGTH_SHORT).show();
                 startStopWatch();
             }
@@ -220,6 +225,7 @@ public class TrackingActivity extends AppCompatActivity {
         mIntervalChronomter.setBase(SystemClock.elapsedRealtime());
         mIntervalChronomter.stop();
     }
+
 
 
 
