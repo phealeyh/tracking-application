@@ -72,14 +72,17 @@ public class TrackingService extends IntentService {
             try {
                 //handle seconds case
                 if(timeUnit.equals(Constants.FIRST_TIME)){
+                    Log.e("Time",Integer.toString(Constants.MILLISECONDS_TO_SECONDS));
                     Thread.sleep(Constants.MILLISECONDS_TO_SECONDS * mInterval);
                 }
                 //handle minutes case
                 else if(timeUnit.equals(Constants.SECOND_TIME))
                 {
+                    Log.e("Time",Integer.toString(Constants.MILLISECONDS_TO_MINUTES));
                     Thread.sleep(Constants.MILLISECONDS_TO_MINUTES * mInterval);
                 }
                 else{ //handle hours case
+                    Log.e("Time",Integer.toString(Constants.MILLISECONDS_TO_HOURS));
                     Thread.sleep(Constants.MILLISECONDS_TO_HOURS * mInterval);
                 }
                 updateUserLocation();
