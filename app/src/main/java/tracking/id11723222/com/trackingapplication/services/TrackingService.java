@@ -12,7 +12,6 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.sql.Time;
-import java.util.concurrent.TimeUnit;
 
 import tracking.id11723222.com.trackingapplication.Constants;
 
@@ -68,9 +67,6 @@ public class TrackingService extends IntentService {
         int mInterval = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS,Integer.toString(Constants.FIRST_INTERVAL)));
         int mMaxValue = mDuration / mInterval;
         String timeUnit = mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS, Constants.FIRST_TIME);
-        Log.e("TIME:", "Duration: " + mDuration
-                        + " Interval: " + mInterval +
-                " Max Value: " + mMaxValue + " TimeUnit: " + timeUnit);
         do{
             try {
                 //handle seconds case

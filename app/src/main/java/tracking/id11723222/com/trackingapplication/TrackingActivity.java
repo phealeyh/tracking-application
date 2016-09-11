@@ -12,6 +12,7 @@ import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +28,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.sql.Time;
 import java.util.ArrayList;
 
-import tracking.id11723222.com.trackingapplication.model.Location;
+import tracking.id11723222.com.trackingapplication.model.LocationData;
 import tracking.id11723222.com.trackingapplication.services.TrackingService;
 
 public class TrackingActivity extends AppCompatActivity {
@@ -35,8 +36,8 @@ public class TrackingActivity extends AppCompatActivity {
     private Button mStartButton, mResetButton, mEmailButton;
     private Chronometer mIntervalChronomter;
     private ListView mLocationListView;
-    private ArrayList<Location> locations;
-    private ArrayAdapter<Location> locationAdapter;
+    private ArrayList<LocationData> locations;
+    private ArrayAdapter<LocationData> locationAdapter;
     private IntentFilter intentFilter;
     private Intent intent;
 
@@ -49,7 +50,7 @@ public class TrackingActivity extends AppCompatActivity {
         setIntervalText();
 
         intent = new Intent(getApplicationContext(), TrackingService.class);
-        locations = new ArrayList<Location>();
+        locations = new ArrayList<LocationData>();
         mLocationListView = (ListView) findViewById(R.id.locations_list);
         locationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, locations);
         mLocationListView.setAdapter(locationAdapter);
@@ -76,7 +77,7 @@ public class TrackingActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        registerReceiver(mBroadcastReceiver,intentFilter);
+        //registerReceiver(mBroadcastReceiver,intentFilter);
         setIntervalText();
     }
 
@@ -85,7 +86,7 @@ public class TrackingActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(mBroadcastReceiver);
+        //unregisterReceiver(mBroadcastReceiver);
     }
 
 
@@ -139,7 +140,6 @@ public class TrackingActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),Constants.CLEARED,Toast.LENGTH_LONG).show();
                 clearLocations();
 
-                stopService(intent);
 
             }
         });
@@ -181,7 +181,7 @@ public class TrackingActivity extends AppCompatActivity {
     }
 
     private void updateLocations(Intent intent){
-        locations.add(new Location(
+        locations.add(new LocationData(
                 (LatLng) intent.getExtras().get(Constants.EXTRA_LOCATION),
                 (Time) intent.getExtras().get(Constants.TIME)));
         locationAdapter.notifyDataSetChanged();
@@ -206,10 +206,13 @@ public class TrackingActivity extends AppCompatActivity {
             if(intent.getAction().equals(Constants.UPDATE_COMMAND)){
                 updateLocations(intent);
                 Toast.makeText(getApplicationContext(), Constants.UPDATE_COMMAND, Toast.LENGTH_SHORT).show();
+                Log.e("Received: ","User Location Received");
+
                 startStopWatch();
             }
             else if(intent.getAction().equals(Constants.FINISH_COMMAND)){
                 Toast.makeText(getApplicationContext(), Constants.FINISH_COMMAND, Toast.LENGTH_SHORT).show();
+                Log.e("Received: ","User Location Finished Updating");
                 setChronometerToZero();
             }
         }

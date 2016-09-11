@@ -2,19 +2,20 @@ package tracking.id11723222.com.trackingapplication.model;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
 import java.sql.Time;
 
 /**
  * Created by tranc on 9/09/2016.
  */
 
-public class Location {
+public class LocationData implements Serializable{
 
     /*Private instance variables */
     Time time;
     LatLng location;
 
-    public Location(LatLng location, Time time){
+    public LocationData(LatLng location, Time time){
         this.location = location;
         this.time = time;
     }
