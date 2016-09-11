@@ -27,7 +27,6 @@ import android.widget.Toast;
 import java.util.List;
 
 import tracking.id11723222.com.trackingapplication.model.LocationData;
-import tracking.id11723222.com.trackingapplication.model.ReminderData;
 import tracking.id11723222.com.trackingapplication.model.ReminderDatabaseHelper;
 import tracking.id11723222.com.trackingapplication.services.TrackingService;
 
@@ -76,6 +75,8 @@ public class TrackingActivity extends AppCompatActivity {
         locationAdapter.changeCursor(ReminderDatabaseHelper.get(TrackingActivity.this).
                 getLocationData(getIntent().getStringExtra(Constants.EXTRA_LOCATION)));
         setIntervalText();
+        registerReceiver(mBroadcastReceiver,intentFilter);
+
     }
 
 
@@ -83,6 +84,7 @@ public class TrackingActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        unregisterReceiver(mBroadcastReceiver);
 
     }
 
@@ -192,6 +194,7 @@ public class TrackingActivity extends AppCompatActivity {
      */
     private void setChronometer(){
         mIntervalChronomter = (Chronometer) findViewById(R.id.interval_timer);
+
     }
 
     private class LocationAdapter extends CursorAdapter {
@@ -270,6 +273,7 @@ public class TrackingActivity extends AppCompatActivity {
 
 
     private void startStopWatch(){
+        //start from 17 seconds
         mIntervalChronomter.setBase(SystemClock.elapsedRealtime());
         mIntervalChronomter.start();
     }
