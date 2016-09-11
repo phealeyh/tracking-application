@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.EditText;
@@ -68,6 +69,10 @@ public class TrackingService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        PowerManager pm = (PowerManager)getApplicationContext().getSystemService(
+                            Context.POWER_SERVICE);
+        PowerManager.WakeLock wk = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Wakelock");
+        wk.acquire();
         SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         int mDuration = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS, Integer.toString(Constants.FIRST_DURATION)));
         int mInterval = Integer.parseInt(mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS,Integer.toString(Constants.FIRST_INTERVAL)));
@@ -80,19 +85,18 @@ public class TrackingService extends IntentService {
                     Thread.sleep(Constants.MILLISECONDS_TO_SECONDS * mInterval);
                 }
                 //handle minutes case
-                else if(timeUnit.equals(Constants.SECOND_TIME))
-                {
+                else if(timeUnit.equals(Constants.SECOND_TIME)) {
                     Thread.sleep(Constants.MILLISECONDS_TO_MINUTES * mInterval);
                 }
                 else{ //handle hours case
                     Thread.sleep(Constants.MILLISECONDS_TO_HOURS * mInterval);
                 }
                 addEntry();
-                //updateUserLocation();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }while((--mMaxValue) > 0);
+        wk.release();
         finishCommand();
     }
 

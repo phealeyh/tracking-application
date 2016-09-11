@@ -75,7 +75,6 @@ public class TrackingActivity extends AppCompatActivity {
         super.onPostResume();
         locationAdapter.changeCursor(ReminderDatabaseHelper.get(TrackingActivity.this).
                 getLocationData(getIntent().getStringExtra(Constants.EXTRA_LOCATION)));
-        registerReceiver(mBroadcastReceiver,intentFilter);
         setIntervalText();
     }
 
@@ -84,7 +83,7 @@ public class TrackingActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(mBroadcastReceiver);
+
     }
 
 
