@@ -48,6 +48,7 @@ public class ReminderDatabaseHelper extends SQLiteOpenHelper {
      */
     private ReminderDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, new ReminderCursorFactory(), DATABASE_VERSION);
+
     }
 
     /**
@@ -58,13 +59,21 @@ public class ReminderDatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //create reminder table
         String createReminderSql = "create table " + ReminderData.TABLE + " ("
                 + ReminderData.COLUMN_ID + " integer primary key autoincrement, "
                 + ReminderData.COLUMN_LOCATION + " text not null, "
                 + ReminderData.COLUMN_DATE + " text not null, "
                 + ReminderData.COLUMN_TIME + " text not null, "
                 + ReminderData.COLUMN_REASON + " text not null)";
+        //create location table
+        String createLocationSql = "create table " + LocationData.TABLE + " ("
+                + LocationData.COLUMN_ID + " integer primary key autoincrement, "
+                + LocationData.COLUMN_LOCATION + " text not null, "
+                + LocationData.COLUMN_TIME + " text not null)";
         db.execSQL(createReminderSql);
+        db.execSQL(createLocationSql);
+
     }
 
     /**
@@ -115,6 +124,19 @@ public class ReminderDatabaseHelper extends SQLiteOpenHelper {
         return (ReminderCursor) getReadableDatabase().query(ReminderData.TABLE, ReminderData.COLUMNS, where, whereArgs, null, null, null);
     }
 
+    public ReminderCursor getLocationData(String location) {
+        // Default to showing all location data
+        String where = null;
+        String[] whereArgs = null;
+        // If a name is specified, filter the results
+        if (location != null) {
+            where = LocationData.COLUMN_LOCATION + " = ?";
+            whereArgs = new String[]{location};
+        }
+        return (ReminderCursor) getReadableDatabase().query(LocationData.TABLE, LocationData.COLUMNS, where, whereArgs, null, null, null);
+    }
+
+
     /**
      * Add a ReminderData row to the database.
      *
@@ -131,6 +153,22 @@ public class ReminderDatabaseHelper extends SQLiteOpenHelper {
         values.put(ReminderData.COLUMN_REASON, reminderData.getReason());
         db.insertOrThrow(ReminderData.TABLE, null, values);
     }
+
+    /**
+     * Add a locationData row to the database.
+     *
+     * @param locationData the data to add to the database.
+     */
+
+    public void addLocation(LocationData locationData) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(LocationData.COLUMN_LOCATION, locationData.getmLocation());
+        values.put(LocationData.COLUMN_TIME, locationData.getmTime());
+        db.insertOrThrow(LocationData.TABLE, null, values);
+    }
+
 
     /**
      * Remove a ReminderData row from the database.
@@ -153,6 +191,7 @@ public class ReminderDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+
     /**
      * A custom cursor providing a getReminderData() method to return the current row as a Java object.
      * This encapsulates the database structure behind a plain old Java object (POJO).
@@ -166,5 +205,20 @@ public class ReminderDatabaseHelper extends SQLiteOpenHelper {
             return new ReminderData(this);
         }
 
+        public LocationData getLocationData() {
+            return new LocationData(this);
+        }
+
+
+
+
     }
+
+
+
+
+
+
+
+
 }

@@ -8,12 +8,18 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.sql.Time;
 
 import tracking.id11723222.com.trackingapplication.Constants;
+import tracking.id11723222.com.trackingapplication.R;
+import tracking.id11723222.com.trackingapplication.model.LocationData;
+import tracking.id11723222.com.trackingapplication.model.ReminderData;
+import tracking.id11723222.com.trackingapplication.model.ReminderDatabaseHelper;
 
 /**
  * Created by phealeyhang on 1/11/15.
@@ -81,12 +87,26 @@ public class TrackingService extends IntentService {
                 else{ //handle hours case
                     Thread.sleep(Constants.MILLISECONDS_TO_HOURS * mInterval);
                 }
+                addEntry();
                 updateUserLocation();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }while((--mMaxValue) > 0);
         finishCommand();
+    }
+
+    private void addEntry(){
+        LatLng location = getCurrentLocation();
+        Time time = new Time(System.currentTimeMillis());
+        try {
+            LocationData locationData = new LocationData(Constants.ZERO, location.toString(),
+                    time.toString());
+            ReminderDatabaseHelper.get(this).addLocation(locationData);
+        } catch (Exception ex) {
+            Log.e(Constants.ERROR, Constants.ADD_CLICKED_EXCEPTION, ex);
+        }
+
     }
 
 
