@@ -24,10 +24,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import tracking.id11723222.com.trackingapplication.model.LocationData;
+import tracking.id11723222.com.trackingapplication.model.ReminderData;
 import tracking.id11723222.com.trackingapplication.model.ReminderDatabaseHelper;
 import tracking.id11723222.com.trackingapplication.services.TrackingService;
 
@@ -174,14 +174,16 @@ public class TrackingActivity extends AppCompatActivity {
     }
 
     private void setUpEmail(){
+        List<LocationData> list = ReminderDatabaseHelper.get(getApplicationContext()).getLocationDataList(null);
         Intent newIntent = new Intent(Intent.ACTION_SEND);
         newIntent.setData(Uri.parse(Constants.MAIL_TO));
         newIntent.putExtra(Intent.EXTRA_SUBJECT, Constants.RECORDED_LOCATIONS);
-        newIntent.putExtra(Intent.EXTRA_TEXT, "hello");
+        newIntent.putExtra(Intent.EXTRA_TEXT, list.toString());
         newIntent.setType(Constants.EMAIL_FORMAT);
         startActivity(Intent.createChooser(newIntent, Constants.EMAIL_ON));
 
     }
+
 
 
 

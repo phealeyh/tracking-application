@@ -9,17 +9,13 @@ import android.location.LocationManager;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.Spinner;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.sql.Time;
 
 import tracking.id11723222.com.trackingapplication.Constants;
-import tracking.id11723222.com.trackingapplication.R;
 import tracking.id11723222.com.trackingapplication.model.LocationData;
-import tracking.id11723222.com.trackingapplication.model.ReminderData;
 import tracking.id11723222.com.trackingapplication.model.ReminderDatabaseHelper;
 
 /**

@@ -62,6 +62,11 @@ public class LocationData implements Serializable {
         this.mLocation = mLocation;
     }
 
+    @Override
+    public String toString(){
+        return "Time: " + mTime + " at " + mLocation;
+    }
+
 
 }
 
