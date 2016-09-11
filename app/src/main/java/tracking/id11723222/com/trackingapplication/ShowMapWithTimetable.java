@@ -189,7 +189,6 @@ public class ShowMapWithTimetable extends FragmentActivity implements OnMapReady
                 changeCursor(ReminderDatabaseHelper.get(ShowMapWithTimetable.this).getReminderData(temp.getLocation()));
             }
             catch(Exception e){
-                Log.e("hello","dead");
                 Toast.makeText(getApplicationContext(), Constants.EMPTY_LIST, Toast.LENGTH_SHORT).show();
             }
         }

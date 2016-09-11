@@ -106,6 +106,31 @@ public class ReminderDatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+
+    public List<LocationData> getLocationDataList(String name) {
+        List<LocationData> list = new ArrayList<>();
+        ReminderCursor cursor = getLocationData(name);
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursor.getLocationData());
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
+
+    public void deleteAllLocations() {
+        ReminderCursor cursor = getReminderData(null);
+        if (cursor.moveToFirst()) {
+            do {
+                removeLocation(cursor.getLocationData());
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+    }
+
+
     /**
      * Get a cursor over reminder data from the database.
      *
@@ -179,6 +204,17 @@ public class ReminderDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(ReminderData.TABLE, ReminderData.COLUMN_ID + " = ?", new String[]{String.valueOf(reminderData.getId())});
     }
+
+    /**
+     * Remove a ReminderData row from the database.
+     *
+     * @param locationData
+     */
+    public void removeLocation(LocationData locationData) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(LocationData.TABLE, LocationData.COLUMN_ID + " = ?", new String[]{String.valueOf(locationData.getmId())});
+    }
+
 
     /**
      * A custom cursor factory which creates instances of ReminderCursor.

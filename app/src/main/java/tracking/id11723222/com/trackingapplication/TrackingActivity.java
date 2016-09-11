@@ -8,33 +8,26 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.PersistableBundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.CursorAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
 
 import tracking.id11723222.com.trackingapplication.model.LocationData;
-import tracking.id11723222.com.trackingapplication.model.ReminderData;
 import tracking.id11723222.com.trackingapplication.model.ReminderDatabaseHelper;
 import tracking.id11723222.com.trackingapplication.services.TrackingService;
 
@@ -44,11 +37,9 @@ public class TrackingActivity extends AppCompatActivity {
     private Chronometer mIntervalChronomter;
     //view
     private ListView mLocationListView;
-    //model
-    private ArrayList<LocationData> locations;
     //controller
-   // private ArrayAdapter<LocationData> locationAdapter;
     private LocationAdapter locationAdapter;
+
     private IntentFilter intentFilter;
     private Intent intent;
 
@@ -61,12 +52,9 @@ public class TrackingActivity extends AppCompatActivity {
         setIntervalText();
 
         intent = new Intent(getApplicationContext(), TrackingService.class);
-        locations = new ArrayList<LocationData>();
         mLocationListView = (ListView) findViewById(R.id.locations_list);
-        //locationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, locations);
         mLocationListView.setAdapter(locationAdapter = new LocationAdapter(getApplicationContext(),
                                         getIntent().getStringExtra(Constants.EXTRA_LOCATION)));
-
         intentFilter = new IntentFilter();
         intentFilter.addAction(Constants.UPDATE_COMMAND);
         intentFilter.addAction(Constants.FINISH_COMMAND);
@@ -75,12 +63,6 @@ public class TrackingActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //populate fields
-        setIntervalText();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,7 +73,9 @@ public class TrackingActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        //registerReceiver(mBroadcastReceiver,intentFilter);
+        locationAdapter.changeCursor(ReminderDatabaseHelper.get(TrackingActivity.this).
+                getLocationData(getIntent().getStringExtra(Constants.EXTRA_LOCATION)));
+        registerReceiver(mBroadcastReceiver,intentFilter);
         setIntervalText();
     }
 
@@ -100,7 +84,7 @@ public class TrackingActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //unregisterReceiver(mBroadcastReceiver);
+        unregisterReceiver(mBroadcastReceiver);
     }
 
 
@@ -154,7 +138,6 @@ public class TrackingActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),Constants.CLEARED,Toast.LENGTH_LONG).show();
                 clearLocations();
 
-
             }
         });
         mEmailButton = (Button) findViewById(R.id.emailButton);
@@ -180,26 +163,27 @@ public class TrackingActivity extends AppCompatActivity {
 
 
     private void clearLocations(){
-        locations.clear();
-        locationAdapter.notifyDataSetChanged();
+        //delete all entries from database
+        List<LocationData> list = ReminderDatabaseHelper.get(getApplicationContext()).getLocationDataList(null);
+        for(LocationData data: list){
+            ReminderDatabaseHelper.get(TrackingActivity.this).removeLocation(data);
+        }
+        locationAdapter.changeCursor(ReminderDatabaseHelper.get(TrackingActivity.this).
+                getLocationData(getIntent().getStringExtra(Constants.EXTRA_LOCATION)));
+
+
     }
 
     private void setUpEmail(){
         Intent newIntent = new Intent(Intent.ACTION_SEND);
         newIntent.setData(Uri.parse(Constants.MAIL_TO));
         newIntent.putExtra(Intent.EXTRA_SUBJECT, Constants.RECORDED_LOCATIONS);
-        newIntent.putExtra(Intent.EXTRA_TEXT, locations.toString());
+        newIntent.putExtra(Intent.EXTRA_TEXT, "hello");
         newIntent.setType(Constants.EMAIL_FORMAT);
         startActivity(Intent.createChooser(newIntent, Constants.EMAIL_ON));
 
     }
 
-    private void updateLocations(Intent intent){
-        locations.add(new LocationData(0,
-                intent.getExtras().get(Constants.EXTRA_LOCATION).toString(),
-                intent.getExtras().get(Constants.TIME).toString()));
-        locationAdapter.notifyDataSetChanged();
-    }
 
 
     /**
@@ -250,7 +234,7 @@ public class TrackingActivity extends AppCompatActivity {
             // This is made "final" so that it can be referenced from within the anonymous OnClickListener below.
             final LocationData locationData = ((ReminderDatabaseHelper.ReminderCursor) cursor).getLocationData();
 
-            TextView locationTV = (TextView) view.findViewById(R.id.recorded_location);
+            TextView locationTV = (TextView) view.findViewById(R.id.recorded_coordinates);
             TextView timeTV = (TextView) view.findViewById(R.id.elapsed_time_text);
             locationTV.setText(locationData.getmLocation());
 
@@ -270,16 +254,13 @@ public class TrackingActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals(Constants.UPDATE_COMMAND)){
-                locationAdapter.notifyDataSetChanged();
-                //updateLocations(intent);
+                locationAdapter.changeCursor(ReminderDatabaseHelper.get(TrackingActivity.this).
+                        getLocationData(getIntent().getStringExtra(Constants.EXTRA_LOCATION)));
                 Toast.makeText(getApplicationContext(), Constants.UPDATE_COMMAND, Toast.LENGTH_SHORT).show();
-                Log.e("Received: ","User Location Received");
-
                 startStopWatch();
             }
             else if(intent.getAction().equals(Constants.FINISH_COMMAND)){
                 Toast.makeText(getApplicationContext(), Constants.FINISH_COMMAND, Toast.LENGTH_SHORT).show();
-                Log.e("Received: ","User Location Finished Updating");
                 setChronometerToZero();
             }
         }

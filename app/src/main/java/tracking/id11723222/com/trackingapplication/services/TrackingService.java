@@ -88,7 +88,7 @@ public class TrackingService extends IntentService {
                     Thread.sleep(Constants.MILLISECONDS_TO_HOURS * mInterval);
                 }
                 addEntry();
-                updateUserLocation();
+                //updateUserLocation();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -103,6 +103,12 @@ public class TrackingService extends IntentService {
             LocationData locationData = new LocationData(Constants.ZERO, location.toString(),
                     time.toString());
             ReminderDatabaseHelper.get(this).addLocation(locationData);
+
+            Intent newIntent = new Intent();
+            newIntent.setAction(Constants.UPDATE_COMMAND);
+            newIntent.putExtra(Constants.EXTRA_LOCATION, locationData);
+            sendBroadcast(newIntent);
+
         } catch (Exception ex) {
             Log.e(Constants.ERROR, Constants.ADD_CLICKED_EXCEPTION, ex);
         }
@@ -117,16 +123,6 @@ public class TrackingService extends IntentService {
         sendBroadcast(newIntent);
     }
 
-    private void updateUserLocation(){
-        Intent newIntent = new Intent();
-        LatLng location = getCurrentLocation();
-        Time time = new Time(System.currentTimeMillis());
-        newIntent.setAction(Constants.UPDATE_COMMAND);
-        newIntent.putExtra(Constants.EXTRA_LOCATION, location);
-        newIntent.putExtra(Constants.TIME, time);
-        sendBroadcast(newIntent);
-
-    }
 
     /**
      * This will get the current location from the LocationManaager. The Location manager is used
