@@ -13,7 +13,6 @@ import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -163,10 +162,11 @@ public class TrackingActivity extends AppCompatActivity {
     private void setIntervalText(){
         SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         TextView textView = (TextView)findViewById(R.id.interval_text);
+        String timeUnit = mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS,Integer.toString(Constants.FIRST_DURATION)).substring(0,3);
         String interval = "Target Interval: " +
                 mSharedPreferences.getString(Constants.PREF_INTERVAL_SETTINGS, Integer.toString(Constants.FIRST_INTERVAL)) +
-                " " +
-                mSharedPreferences.getString(Constants.PREF_TIME_SETTINGS,Integer.toString(Constants.FIRST_DURATION));
+                "/" + mSharedPreferences.getString(Constants.PREF_DURATION_SETTINGS, Integer.toString(Constants.FIRST_DURATION)) + " " +
+                timeUnit;
         textView.setText(interval);
         textView.setTextColor(Color.RED);
     }
@@ -285,6 +285,7 @@ public class TrackingActivity extends AppCompatActivity {
     private void updateState(){
         if(isMyServiceRunning()){
             startStopWatch();
+            mIntervalChronomter.start();
             mStartButton.setEnabled(false);
             statusView.setText(Constants.ACTIVE);
             statusView.setTextColor(Color.GREEN);
@@ -309,13 +310,19 @@ public class TrackingActivity extends AppCompatActivity {
         return false;
     }
 
-
-
-
-    private void startStopWatch(){
-        mIntervalChronomter.setBase(SystemClock.elapsedRealtime());
+    private void startStopWatch() {
+        ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (Constants.TRACKING_SERVICE.equals(service.service.getClassName()))
+                mIntervalChronomter.setBase(service.activeSince);
+        }
         mIntervalChronomter.start();
     }
+
+
+
+
+
 
     private void setChronometerToZero(){
         mIntervalChronomter.setBase(SystemClock.elapsedRealtime());
