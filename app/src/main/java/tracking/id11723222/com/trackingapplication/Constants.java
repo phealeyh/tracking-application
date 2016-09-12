@@ -41,6 +41,8 @@ public class Constants {
     public static final String FIRST_TIME = "Seconds";
     public static final String SECOND_TIME = "Minutes";
     public static final String THIRD_TIME = "Hours";
+    public static final String TRACKING_SERVICE = "tracking.id11723222.com.trackingapplication.services.TrackingService";
+
     public static final int FIRST_DURATION = 15;
     public static final int SECOND_DURATION = 30;
     public static final int THIRD_DURATION = 45;

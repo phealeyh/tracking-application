@@ -1,5 +1,6 @@
 package tracking.id11723222.com.trackingapplication;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -76,6 +78,7 @@ public class TrackingActivity extends AppCompatActivity {
                 getLocationData(getIntent().getStringExtra(Constants.EXTRA_LOCATION)));
         setIntervalText();
         registerReceiver(mBroadcastReceiver,intentFilter);
+        if(isMyServiceRunning()) startStopWatch();
 
     }
 
@@ -258,6 +261,7 @@ public class TrackingActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals(Constants.UPDATE_COMMAND)){
+
                 locationAdapter.changeCursor(ReminderDatabaseHelper.get(TrackingActivity.this).
                         getLocationData(getIntent().getStringExtra(Constants.EXTRA_LOCATION)));
                 Toast.makeText(getApplicationContext(), Constants.UPDATE_COMMAND, Toast.LENGTH_SHORT).show();
@@ -270,10 +274,18 @@ public class TrackingActivity extends AppCompatActivity {
         }
     };
 
+    private boolean isMyServiceRunning() {
+        ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (Constants.TRACKING_SERVICE.equals(service.service.getClassName())) return true;
+        }
+        return false;
+    }
+
+
 
 
     private void startStopWatch(){
-        //start from 17 seconds
         mIntervalChronomter.setBase(SystemClock.elapsedRealtime());
         mIntervalChronomter.start();
     }
