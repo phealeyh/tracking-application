@@ -35,6 +35,7 @@ import tracking.id11723222.com.trackingapplication.services.TrackingService;
 public class TrackingActivity extends AppCompatActivity {
 
     private Button mStartButton, mResetButton, mEmailButton;
+    private TextView statusView;
     private Chronometer mIntervalChronomter;
     //view
     private ListView mLocationListView;
@@ -51,6 +52,7 @@ public class TrackingActivity extends AppCompatActivity {
         setButtonListeners();
         setChronometer();
         setIntervalText();
+        setStatusText();
 
         intent = new Intent(getApplicationContext(), TrackingService.class);
         mLocationListView = (ListView) findViewById(R.id.locations_list);
@@ -78,8 +80,7 @@ public class TrackingActivity extends AppCompatActivity {
                 getLocationData(getIntent().getStringExtra(Constants.EXTRA_LOCATION)));
         setIntervalText();
         registerReceiver(mBroadcastReceiver,intentFilter);
-        if(isMyServiceRunning()) startStopWatch();
-
+        updateState();
     }
 
 
@@ -129,9 +130,9 @@ public class TrackingActivity extends AppCompatActivity {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startStopWatch();
                 //start service
                 startService(intent);
+                updateState();
                 Toast.makeText(getApplicationContext(),Constants.STARTED,Toast.LENGTH_LONG).show();
             }
         });
@@ -152,6 +153,11 @@ public class TrackingActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),Constants.EMAIL_SENT,Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void setStatusText(){
+        statusView = (TextView) findViewById(R.id.status);
+        updateState();
     }
 
     private void setIntervalText(){
@@ -261,18 +267,39 @@ public class TrackingActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equals(Constants.UPDATE_COMMAND)){
-
                 locationAdapter.changeCursor(ReminderDatabaseHelper.get(TrackingActivity.this).
                         getLocationData(getIntent().getStringExtra(Constants.EXTRA_LOCATION)));
+                updateState();
                 Toast.makeText(getApplicationContext(), Constants.UPDATE_COMMAND, Toast.LENGTH_SHORT).show();
-                startStopWatch();
             }
             else if(intent.getAction().equals(Constants.FINISH_COMMAND)){
                 Toast.makeText(getApplicationContext(), Constants.FINISH_COMMAND, Toast.LENGTH_SHORT).show();
-                setChronometerToZero();
+                updateState();
             }
         }
     };
+
+
+    //This function will set the text and button
+    //to their respective states if the service is
+    private void updateState(){
+        if(isMyServiceRunning()){
+            startStopWatch();
+            mStartButton.setEnabled(false);
+            statusView.setText(Constants.ACTIVE);
+            statusView.setTextColor(Color.GREEN);
+        }
+        else{
+            setChronometerToZero();
+            mStartButton.setEnabled(true);
+            statusView.setText(Constants.INACTIVE);
+            statusView.setTextColor(Color.RED);
+        }
+    }
+
+
+
+
 
     private boolean isMyServiceRunning() {
         ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);

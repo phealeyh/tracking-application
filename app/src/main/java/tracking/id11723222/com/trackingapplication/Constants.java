@@ -18,7 +18,7 @@ public class Constants {
     public static final String DATE_SET ="DATE SET";
     public static final String EMPTY_LIST = "No reminders found. Please add an entry";
     public static final String BAD_LIST = "BAD LIST";
-
+    public static final String PACKAGE_NAME = "tracking.id11723222.com.trackingapplication";
     public static final String CLEARED_TEXT = "Cleared";
     public static final String ADD_CLICKED_EXCEPTION = "onAddClicked Exception: ";
     public static final String COMPARED_TO = " compared to ";
@@ -41,6 +41,8 @@ public class Constants {
     public static final String FIRST_TIME = "Seconds";
     public static final String SECOND_TIME = "Minutes";
     public static final String THIRD_TIME = "Hours";
+    public static final String ACTIVE = "ACTIVE";
+    public static final String INACTIVE = "INACTIVE";
     public static final String TRACKING_SERVICE = "tracking.id11723222.com.trackingapplication.services.TrackingService";
 
     public static final int FIRST_DURATION = 15;
