@@ -8,6 +8,4 @@ Please head to: https://console.developers.google.com and sign up for a google m
 
 - Set your location settings to 'on' found within your phone's settings before running the application.
 
-- Don't spam the 'start tracking' button found within the start tracking activity as this will create multiple worker threads running concurrently (trying to fix).
-
 Failure to do so will result in crashes and run-time exceptions.
