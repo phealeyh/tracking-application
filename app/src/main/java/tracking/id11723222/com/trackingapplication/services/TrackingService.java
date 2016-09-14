@@ -4,6 +4,8 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.PowerManager;
@@ -13,6 +15,7 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.sql.Time;
+import java.util.Locale;
 
 import tracking.id11723222.com.trackingapplication.Constants;
 import tracking.id11723222.com.trackingapplication.model.LocationData;
@@ -100,7 +103,10 @@ public class TrackingService extends IntentService {
         LatLng location = getCurrentLocation();
         Time time = new Time(System.currentTimeMillis());
         try {
-            LocationData locationData = new LocationData(Constants.ZERO, location.toString(),
+            Address add = new Geocoder(this, Locale.getDefault()).getFromLocation(location.latitude,location.longitude,1).get(0);
+            String address = add.getFeatureName() +  " " + add.getThoroughfare() + ", "
+                    + add.getLocality() + ", " + add.getAdminArea() + ", " + add.getCountryName();
+            LocationData locationData = new LocationData(Constants.ZERO, address,
                     time.toString());
             ReminderDatabaseHelper.get(this).addLocation(locationData);
 
