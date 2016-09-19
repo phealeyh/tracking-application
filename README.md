@@ -8,6 +8,6 @@ Please head to: https://console.developers.google.com and sign up for a google m
 
 - Set your location settings to 'on' found within your phone's settings before running the application.
 
-- When adding an address -- please add the address number, street name, suburb and state in that order.
+- When adding an reminder -- please add the address number, street name, suburb and state in that order.
 
 Failure to do so will result in crashes and run-time exceptions.
