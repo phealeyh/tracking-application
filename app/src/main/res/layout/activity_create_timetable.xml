@@ -102,6 +102,7 @@
             android:editable="false"
             android:ems="10"
             android:id="@+id/date_field"
+            android:textColorHint="@color/gray"
             android:layout_alignBottom="@+id/date_view"
             android:layout_alignStart="@+id/time_field" />
 
@@ -112,6 +113,7 @@
             android:inputType="none"
             android:editable="false"
             android:ems="10"
+            android:textColorHint="@color/gray"
             android:id="@+id/time_field"
             android:layout_alignBottom="@+id/time_view"
             android:layout_alignStart="@+id/reason_box" />
@@ -130,6 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="13"
+            android:textColorHint="@color/gray"
             android:id="@+id/location_field"
             android:layout_alignBaseline="@+id/location_view"
             android:layout_alignBottom="@+id/location_view"
