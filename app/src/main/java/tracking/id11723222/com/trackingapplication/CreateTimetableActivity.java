@@ -3,6 +3,7 @@ package tracking.id11723222.com.trackingapplication;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -244,11 +245,16 @@ public class CreateTimetableActivity extends AppCompatActivity implements Google
     private void resetFields() {
         Spinner spinner = (Spinner) findViewById(R.id.reason_box);
         EditText text = (EditText) findViewById(R.id.location_field);
-        text.setText(Constants.BLANK_STATE);
+        text.setText("");
+        text.setHint(text.getHint());
+
         text = (EditText) findViewById(R.id.date_field);
-        text.setText(Constants.BLANK_STATE);
+        text.setText("");
+        text.setHint(text.getHint());
+
         text = (EditText) findViewById(R.id.time_field);
-        text.setText(Constants.BLANK_STATE);
+        text.setText("");
+        text.setHint(text.getHint());
         spinner.setSelection(Constants.ZERO); //sets spinner array to the first element
 
     }
