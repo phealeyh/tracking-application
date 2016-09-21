@@ -3,13 +3,13 @@ package tracking.id11723222.com.trackingapplication;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -44,6 +44,21 @@ public class CreateTimetableActivity extends AppCompatActivity implements Google
         setDateListener();
         setTimeListener();
         setAutoCompleteFeature();
+        setTextViewListener();
+    }
+
+    private void setTextViewListener(){
+        final TextView textView = (TextView) findViewById(R.id.location_field);
+        textView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(!hasFocus){
+                    InputMethodManager imm = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+
+            }
+        });
     }
 
     private void setAutoCompleteFeature(){
