@@ -52,7 +52,7 @@ public class CreateTimetableActivity extends AppCompatActivity implements Google
         textView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if(!hasFocus){
+                if(!hasFocus){ //doesn't have focus
                     InputMethodManager imm = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
