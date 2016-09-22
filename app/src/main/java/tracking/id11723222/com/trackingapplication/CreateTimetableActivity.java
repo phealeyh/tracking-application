@@ -247,9 +247,27 @@ public class CreateTimetableActivity extends AppCompatActivity implements Google
 
 
     public void onSubmitClicked(View view) {
-        Toast.makeText(this, Constants.ENTRY_CREATED, Toast.LENGTH_SHORT).show();
-        createEntry();
-        resetFields();
+        //only submit if the fields are all filled with something
+        if(allFieldsHaveText()) {
+            Toast.makeText(this, Constants.ENTRY_CREATED, Toast.LENGTH_SHORT).show();
+            createEntry();
+            resetFields();
+        }
+        else{
+            Toast.makeText(this,Constants.FILL_TEXT, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * This method will return true if all the fields in the text fields are filled
+     * or false if all/one of them is missing their respective entry text
+     */
+
+    private boolean allFieldsHaveText(){
+        EditText timeET = (EditText) findViewById(R.id.time_field);
+        EditText locationET = (EditText) findViewById(R.id.location_field);
+        EditText dateET = (EditText) findViewById(R.id.date_field);
+        return ((!timeET.getText().toString().isEmpty()) && (!locationET.getText().toString().isEmpty()) && (!dateET.getText().toString().isEmpty()));
     }
 
 
