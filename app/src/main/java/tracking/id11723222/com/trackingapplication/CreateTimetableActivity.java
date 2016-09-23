@@ -68,7 +68,6 @@ public class CreateTimetableActivity extends AppCompatActivity implements Google
                 findViewById(R.id.location_field);
         locationView.setAdapter(adapter);
         locationView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-        //set array adapter
     }
 
 
