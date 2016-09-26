@@ -25,6 +25,7 @@
     <string name="date_format">dd/mm/yyyy</string>
     <string name="time_format">HH:MM</string>
     <string name="location_format">Number-Street-Suburb-State</string>
+    <string name="about_me">About:</string>
 
     <string-array name="reasons">
         <item>Work</item>
@@ -52,6 +53,13 @@
     <string name="title_activity_settings">Settings</string>
     <string name="tracking_preferences">Tracking Preferences</string>
     <string name="about">About</string>
+    <string name="contribute">Contribute</string>
+    <string name="contribution_description">If you would like to contribute to the project then please head to: https://github.com/phealeyh/tracking-application </string>
+    <string name="about_description">Copyright 2016 Phealey Hang</string>
+    <string name="about_app">This is the first version of the Tracking Application created by Phealey Hang.
+    This Application is of course, still evolving and I encourage anyone to send bug reports or ideas for improvements to me
+        on Phealey.Hang@alumni.uts.edu.au
+    </string>
     <string name="timer_settings">Timer Settings</string>
     <string name="preference_time_format_title">Time Format</string>
     <string name="preference_hour_format">Hours</string>
