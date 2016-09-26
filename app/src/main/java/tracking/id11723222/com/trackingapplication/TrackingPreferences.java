@@ -6,7 +6,6 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
-import android.util.Log;
 
 public class TrackingPreferences extends PreferenceActivity {
 

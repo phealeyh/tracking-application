@@ -7,5 +7,8 @@
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/tracking_preferences" android:title="@string/tracking_preferences"
         android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/about_page" android:title="@string/about"
+        android:orderInCategory="100" app:showAsAction="never" />
+
 
 </menu>

@@ -51,6 +51,7 @@
     <string name="title_activity_go_to_location">Map</string>
     <string name="title_activity_settings">Settings</string>
     <string name="tracking_preferences">Tracking Preferences</string>
+    <string name="about">About</string>
     <string name="timer_settings">Timer Settings</string>
     <string name="preference_time_format_title">Time Format</string>
     <string name="preference_hour_format">Hours</string>
@@ -93,7 +94,6 @@
     </string-array>
 
 
-
     <string-array name="preference_duration">
         <item>@string/preference_first_duration</item>
         <item>@string/preference_second_duration</item>
@@ -125,10 +125,6 @@
         <item>2</item>
         <item>3</item>
     </string-array>
-
-
-
-
 
 
     <!-- Example settings for Data & Sync -->
