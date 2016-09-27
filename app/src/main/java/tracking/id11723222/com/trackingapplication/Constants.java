@@ -25,7 +25,7 @@ public class Constants {
     public static final String COMPARED_TO = " compared to ";
     public static final String RECORDED_LOCATIONS = "Recorded Locations";
     public static final String EMAIL_FORMAT = "message/rfc822";
-    public static final String EMAIL_SENT = "Email Sent";
+    public static final String EMAIL_SENT = "Email Recorded Locations";
     public static final String MAIL_TO = "mailto:";
     public static final String ENTRY_REASON = "Reason";
     public static final String ENTRY_CREATED = "Entry Created";
