@@ -41,7 +41,6 @@ public class Constants {
     public static final String PREF_INTERVAL_SETTINGS = "pref_interval_settings";
     public static final String FIRST_TIME = "Seconds";
     public static final String SECOND_TIME = "Minutes";
-    public static final String THIRD_TIME = "Hours";
     public static final String ACTIVE = "ACTIVE";
     public static final String INACTIVE = "INACTIVE";
     public static final String TRACKING_SERVICE = "tracking.id11723222.com.trackingapplication.services.TrackingService";
@@ -51,7 +50,6 @@ public class Constants {
     public static final int THIRD_DURATION = 45;
     public static final int FOURTH_DURATION = 60;
     public static final int FIRST_INTERVAL = 5;
-    public static final int SECOND_INTERVAL = 10;
     public static final int THIRD_INTERVAL = 15;
 
     public static final float ZOOM_LEVEL = 14.0f;

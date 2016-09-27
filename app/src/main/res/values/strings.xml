@@ -98,7 +98,6 @@
     <string-array name="preference_time_settings">
         <item>@string/preference_second_format</item>
         <item>@string/preference_minute_format</item>
-        <item>@string/preference_hour_format</item>
     </string-array>
 
 
@@ -111,7 +110,6 @@
 
     <string-array name="preference_interval">
         <item>@string/preference_first_interval</item>
-        <item>@string/preference_second_interval</item>
         <item>@string/preference_third_interval</item>
     </string-array>
 
