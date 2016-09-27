@@ -24,7 +24,7 @@
     <string name="reason">Reason</string>
     <string name="date_format">dd/mm/yyyy</string>
     <string name="time_format">HH:MM</string>
-    <string name="location_format">Number-Street-Suburb-State</string>
+    <string name="location_format">Number-Street-Suburb</string>
     <string name="about_me">About:</string>
 
     <string-array name="reasons">
