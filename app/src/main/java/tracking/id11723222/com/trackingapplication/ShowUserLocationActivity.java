@@ -1,6 +1,8 @@
 package tracking.id11723222.com.trackingapplication;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
@@ -11,15 +13,20 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.location.Location;
+import android.util.Log;
+
+import java.util.Locale;
 
 public class ShowUserLocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private LocationManager mManager;
     private LocationListener mListener;
+    private boolean latShowing;
 
     /**
      * This will initialise the activity members and will setup the fragment to show a
@@ -81,8 +88,37 @@ public class ShowUserLocationActivity extends FragmentActivity implements OnMapR
         Location lastLocation = mManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         lastLocation.getLatitude();
         lastLocation.getLongitude();
-        LatLng currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(currentLocation).title(currentLocation.toString()));
+        final LatLng currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+        //display marker with the lat/lng location
+        final Marker mark = mMap.addMarker(new MarkerOptions().position(currentLocation).title(currentLocation.toString()));
+        latShowing = true;
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, Constants.ZOOM_LEVEL));
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if(latShowing){
+                    mark.setTitle(getPostalAddress(currentLocation));
+                    latShowing = false;
+                }
+                else{
+                    mark.setTitle(currentLocation.toString());
+                    latShowing = true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private String getPostalAddress(LatLng location){
+        String address = "";
+        try{
+            Address add = new Geocoder(this, Locale.getDefault()).getFromLocation(location.latitude,location.longitude,1).get(0);
+            address = add.getFeatureName() +  " " + add.getThoroughfare() + ", "
+                    + add.getLocality() + ", " + add.getAdminArea() + ", " + add.getCountryName();
+        } catch(Exception e){
+            Log.e(Constants.ERROR, Constants.ADD_CLICKED_EXCEPTION, e);
+        }
+        return address;
     }
 }
