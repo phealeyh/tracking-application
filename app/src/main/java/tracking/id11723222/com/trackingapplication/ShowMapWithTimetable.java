@@ -108,6 +108,14 @@ public class ShowMapWithTimetable extends FragmentActivity implements OnMapReady
             startActivity(intent);
             return true;
         }
+        else if(id == R.id.tracking_preferences){
+            startActivity(new Intent(this,TrackingPreferences.class));
+            return true;
+        }
+        else if(id == R.id.about_page){
+            startActivity(new Intent(this,AboutPageActivity.class));
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

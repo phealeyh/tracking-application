@@ -59,6 +59,10 @@ public class AboutPageActivity extends AppCompatActivity {
             startActivity(new Intent(this,TrackingPreferences.class));
             return true;
         }
+        else if(id == R.id.about_page){
+            startActivity(new Intent(this,AboutPageActivity.class));
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

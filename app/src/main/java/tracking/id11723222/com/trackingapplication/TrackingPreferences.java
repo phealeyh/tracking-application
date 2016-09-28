@@ -1,11 +1,13 @@
 package tracking.id11723222.com.trackingapplication;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 public class TrackingPreferences extends PreferenceActivity {
 
@@ -24,6 +26,8 @@ public class TrackingPreferences extends PreferenceActivity {
         addPreferencesFromResource(R.xml.timer_settings);
         setPreferences();
     }
+
+
 
 
 

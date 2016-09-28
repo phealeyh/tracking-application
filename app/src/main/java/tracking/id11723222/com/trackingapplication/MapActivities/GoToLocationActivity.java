@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import tracking.id11723222.com.trackingapplication.AboutPageActivity;
 import tracking.id11723222.com.trackingapplication.Constants;
 import tracking.id11723222.com.trackingapplication.CreateTimetableActivity;
 import tracking.id11723222.com.trackingapplication.MainActivity;
@@ -84,12 +85,14 @@ public class GoToLocationActivity extends FragmentActivity implements OnMapReady
             startActivity(intent);
             return true;
         }
-
         else if(id == R.id.tracking_preferences){
             startActivity(new Intent(this,TrackingPreferences.class));
             return true;
         }
-
+        else if(id == R.id.about_page){
+            startActivity(new Intent(this,AboutPageActivity.class));
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
