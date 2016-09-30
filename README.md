@@ -1,6 +1,9 @@
 # tracking-application
 This application will allow the user to keep a track of their reminders that are based on locations. It can also track your locations with a given time interval and duration; making it a fully fledged real-time gps tracker. If you don't want to get into the hassle of compiling the code then please check the screenshots to give you a visual idea of what the application looks like.
 
+# tracking-application
+Install by downloading the raw app-debug.apk file and installing it onto your phone. Remember to have your locations settings turned to on before using the app.
+
 NOTES:
 
 - The map features won't work unless you use your own API Key and register it with your SHA generated from your computer.
