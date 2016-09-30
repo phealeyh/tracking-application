@@ -2,6 +2,7 @@ package tracking.id11723222.com.trackingapplication;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -22,6 +23,8 @@ public class TrackingPreferences extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         addPreferencesFromResource(R.xml.timer_settings);
         setPreferences();

@@ -2,17 +2,16 @@ package tracking.id11723222.com.trackingapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Range;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
@@ -27,7 +26,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.location.FusedLocationProviderApi;
 
 
 import java.io.IOException;
@@ -36,7 +34,6 @@ import java.util.Locale;
 
 import tracking.id11723222.com.trackingapplication.model.ReminderData;
 import tracking.id11723222.com.trackingapplication.model.ReminderDatabaseHelper;
-import tracking.id11723222.com.trackingapplication.services.LocationRetriever;
 
 public class ShowMapWithTimetable extends FragmentActivity implements OnMapReadyCallback {
 
@@ -59,6 +56,8 @@ public class ShowMapWithTimetable extends FragmentActivity implements OnMapReady
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         setContentView(R.layout.activity_show_map_with_timetable);
         mContext = this;
         Intent intent = getIntent();
