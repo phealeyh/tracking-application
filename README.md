@@ -4,6 +4,9 @@ This application will allow the user to keep a track of their reminders that are
 # Installation
 Install by downloading the raw app-release.apk file and installing it onto your phone. Remember to have your locations settings turned to on before using the app.
 
+Or, head to the playstore and install it to your phone by clicking on the listing:
+https://play.google.com/store/apps/details?id=tracking.id11723222.com.trackingapplication
+
 # Developer Notes:
 
 - The map features won't work unless you use your own API Key and register it with your SHA generated from your computer.
