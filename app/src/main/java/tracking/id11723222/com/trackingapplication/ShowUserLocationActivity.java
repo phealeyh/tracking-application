@@ -88,6 +88,7 @@ public class ShowUserLocationActivity extends FragmentActivity implements OnMapR
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         Location lastLocation = mManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         lastLocation.getLatitude();
         lastLocation.getLongitude();

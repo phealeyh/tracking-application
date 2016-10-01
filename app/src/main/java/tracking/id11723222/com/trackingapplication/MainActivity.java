@@ -1,5 +1,7 @@
 package tracking.id11723222.com.trackingapplication;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.preference.PreferenceManager;
@@ -13,7 +15,7 @@ import android.widget.Toast;
 import tracking.id11723222.com.trackingapplication.settings.LocationSettingsChecker;
 
 public class MainActivity extends AppCompatActivity {
-
+    private Context context;
     /**
      * This will inflate the layout to the activity_main layout
      *
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        context = getApplicationContext();
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -55,13 +57,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onShowTimetableWithMap(View view) {
-        if(LocationSettingsChecker.checkLocationSettings(getApplicationContext())){
-            startActivity(new Intent(this, ShowMapWithTimetable.class));
 
+        if(LocationSettingsChecker.checkLocationSettings(context) && LocationSettingsChecker.checkGPSSettings(context)){
+            startActivity(new Intent(this, ShowMapWithTimetable.class));
         }
-        else{
+        else if(!LocationSettingsChecker.checkLocationSettings(context)){
             Toast.makeText(getApplicationContext(), Constants.TURN_ON_LOCATION, Toast.LENGTH_SHORT).show();
             startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+        }
+        else{ //change mobile data settings
+            Toast.makeText(getApplicationContext(), Constants.TURN_ON_DATA, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName(Constants.COM_SETTINGS,Constants.SUMMARY_ACTIVITY_USAGE));
+            startActivity(intent);
+
         }
     }
 
@@ -73,7 +83,24 @@ public class MainActivity extends AppCompatActivity {
      */
 
     public void onStartTrackingClicked(View view) {
-        startActivity(new Intent(this, TrackingActivity.class));
+        if(LocationSettingsChecker.checkLocationSettings(context) && LocationSettingsChecker.checkGPSSettings(context)){
+            startActivity(new Intent(this, TrackingActivity.class));
+
+        }
+        else if(!LocationSettingsChecker.checkLocationSettings(context)){
+            Toast.makeText(getApplicationContext(), Constants.TURN_ON_LOCATION, Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+        }
+        else{ //change mobile data settings
+            Toast.makeText(getApplicationContext(), Constants.TURN_ON_DATA, Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName(Constants.COM_SETTINGS,Constants.SUMMARY_ACTIVITY_USAGE));
+            startActivity(intent);
+
+        }
+
     }
 
     /**
@@ -83,13 +110,21 @@ public class MainActivity extends AppCompatActivity {
      */
 
     public void onUserLocationClicked(View view) {
-        if(LocationSettingsChecker.checkLocationSettings(getApplicationContext())){
+        if(LocationSettingsChecker.checkLocationSettings(context) && LocationSettingsChecker.checkGPSSettings(context)){
             startActivity(new Intent(this, ShowUserLocationActivity.class));
 
         }
-        else{
+        else if(!LocationSettingsChecker.checkLocationSettings(context)){
             Toast.makeText(getApplicationContext(), Constants.TURN_ON_LOCATION, Toast.LENGTH_SHORT).show();
             startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+        }
+        else{ //change mobile data settings
+            Toast.makeText(getApplicationContext(), Constants.TURN_ON_DATA, Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName(Constants.COM_SETTINGS,Constants.SUMMARY_ACTIVITY_USAGE));
+            startActivity(intent);
 
         }
     }

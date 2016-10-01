@@ -1,6 +1,7 @@
 package tracking.id11723222.com.trackingapplication;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -178,19 +179,27 @@ public class ListTimetableActivity extends AppCompatActivity {
             locationButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    if(LocationSettingsChecker.checkLocationSettings(context)){
+                    if(LocationSettingsChecker.checkLocationSettings(context) && LocationSettingsChecker.checkGPSSettings(context)){
                         Intent intent = new Intent(mContext, GoToLocationActivity.class);
                         intent.putExtra(Constants.EXTRA_LOCATION, reminderData.getLocation());
                         intent.putExtra(Constants.ENTRY_REASON, reminderData.getReason());
                         Toast.makeText(getApplicationContext(), Constants.LOCATION_SELECTED, Toast.LENGTH_SHORT).show();
                         //go to specific location with given coordinates
                         startActivity(intent);
+                    }
+                    else if(!LocationSettingsChecker.checkLocationSettings(context)){
+                        Toast.makeText(getApplicationContext(), Constants.TURN_ON_LOCATION, Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
                     }
-                    else{
-                        Toast.makeText(context, Constants.TURN_ON_LOCATION, Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    else{ //change mobile data settings
+                        Toast.makeText(getApplicationContext(), Constants.TURN_ON_DATA, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.setComponent(new ComponentName(Constants.COM_SETTINGS,Constants.SUMMARY_ACTIVITY_USAGE));
+                        startActivity(intent);
+
                     }
+
                 }
             });
 

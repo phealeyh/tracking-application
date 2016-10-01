@@ -21,6 +21,10 @@ public class Constants {
     public static final String PACKAGE_NAME = "tracking.id11723222.com.trackingapplication";
     public static final String CLEARED_TEXT = "Cleared";
     public static final String TURN_ON_LOCATION = "Please turn on your location settings";
+    public static final String TURN_ON_DATA = "Please turn on your mobile data";
+    public static final String COM_SETTINGS = "com.android.settings";
+    public static final String SUMMARY_ACTIVITY_USAGE = "com.android.settings.Settings$DataUsageSummaryActivity";
+    public static final String MOBILE_DATA_ENABLED = "getMobileDataEnabled";
     public static final String FILL_TEXT = "Please fill in all the fields";
     public static final String ADD_CLICKED_EXCEPTION = "onAddClicked Exception: ";
     public static final String COMPARED_TO = " compared to ";
