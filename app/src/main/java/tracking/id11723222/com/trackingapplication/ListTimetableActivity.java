@@ -1,9 +1,12 @@
 package tracking.id11723222.com.trackingapplication;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 import tracking.id11723222.com.trackingapplication.MapActivities.GoToLocationActivity;
 import tracking.id11723222.com.trackingapplication.model.ReminderData;
 import tracking.id11723222.com.trackingapplication.model.ReminderDatabaseHelper;
+import tracking.id11723222.com.trackingapplication.settings.LocationSettingsChecker;
 
 public class ListTimetableActivity extends AppCompatActivity {
     private ListView mReminderListView;
@@ -168,21 +172,30 @@ public class ListTimetableActivity extends AppCompatActivity {
          */
 
         private void setLocationButton(View view, Cursor cursor){
+            final Context context = getApplicationContext();
             final ReminderData reminderData = ((ReminderDatabaseHelper.ReminderCursor) cursor).getReminderData();
             ImageButton locationButton = (ImageButton) view.findViewById(R.id.list_item_location_imagebutton);
             locationButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, GoToLocationActivity.class);
-                    intent.putExtra(Constants.EXTRA_LOCATION, reminderData.getLocation());
-                    intent.putExtra(Constants.ENTRY_REASON, reminderData.getReason());
-                    Toast.makeText(getApplicationContext(), Constants.LOCATION_SELECTED, Toast.LENGTH_SHORT).show();
-                    //go to specific location with given coordinates
-                    startActivity(intent);
+                    if(LocationSettingsChecker.checkLocationSettings(context)){
+                        Intent intent = new Intent(mContext, GoToLocationActivity.class);
+                        intent.putExtra(Constants.EXTRA_LOCATION, reminderData.getLocation());
+                        intent.putExtra(Constants.ENTRY_REASON, reminderData.getReason());
+                        Toast.makeText(getApplicationContext(), Constants.LOCATION_SELECTED, Toast.LENGTH_SHORT).show();
+                        //go to specific location with given coordinates
+                        startActivity(intent);
+
+                    }
+                    else{
+                        Toast.makeText(context, Constants.TURN_ON_LOCATION, Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
                 }
             });
 
         }
+
     }
 
 }

@@ -27,6 +27,7 @@ import tracking.id11723222.com.trackingapplication.CreateTimetableActivity;
 import tracking.id11723222.com.trackingapplication.MainActivity;
 import tracking.id11723222.com.trackingapplication.R;
 import tracking.id11723222.com.trackingapplication.TrackingPreferences;
+import tracking.id11723222.com.trackingapplication.settings.LocationSettingsChecker;
 
 public class GoToLocationActivity extends FragmentActivity implements OnMapReadyCallback {
 

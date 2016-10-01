@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import tracking.id11723222.com.trackingapplication.settings.LocationSettingsChecker;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -54,7 +56,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onShowTimetableWithMap(View view) {
-        startActivity(new Intent(this, ShowMapWithTimetable.class));
+        if(LocationSettingsChecker.checkLocationSettings(getApplicationContext())){
+            startActivity(new Intent(this, ShowMapWithTimetable.class));
+
+        }
+        else{
+            Toast.makeText(getApplicationContext(), Constants.TURN_ON_LOCATION, Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        }
     }
 
 
@@ -75,7 +84,15 @@ public class MainActivity extends AppCompatActivity {
      */
 
     public void onUserLocationClicked(View view) {
-        startActivity(new Intent(this, ShowUserLocationActivity.class));
+        if(LocationSettingsChecker.checkLocationSettings(getApplicationContext())){
+            startActivity(new Intent(this, ShowUserLocationActivity.class));
+
+        }
+        else{
+            Toast.makeText(getApplicationContext(), Constants.TURN_ON_LOCATION, Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+        }
     }
 
     /**

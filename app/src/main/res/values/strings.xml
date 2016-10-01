@@ -154,6 +154,10 @@
         <item>-1</item>
     </string-array>
 
+    <string name="gps_network_not_enabled">GPS network not enabled</string>
+    <string name="open_location_settings">Location Settings</string>
+    <string name="Cancel">Cancel</string>
+
 
     <string name="pref_title_system_sync_settings">System sync settings</string>
 

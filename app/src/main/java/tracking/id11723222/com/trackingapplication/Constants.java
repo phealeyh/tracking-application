@@ -20,6 +20,7 @@ public class Constants {
     public static final String BAD_LIST = "BAD LIST";
     public static final String PACKAGE_NAME = "tracking.id11723222.com.trackingapplication";
     public static final String CLEARED_TEXT = "Cleared";
+    public static final String TURN_ON_LOCATION = "Please turn on your location settings";
     public static final String FILL_TEXT = "Please fill in all the fields";
     public static final String ADD_CLICKED_EXCEPTION = "onAddClicked Exception: ";
     public static final String COMPARED_TO = " compared to ";
