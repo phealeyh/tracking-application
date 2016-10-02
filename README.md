@@ -1,5 +1,5 @@
 # Tracking Application
-This application will allow the user to keep a track of their reminders that are based on locations. It can also track your locations with a given time interval and duration; making it a fully fledged real-time gps tracker. If you don't want to get into the hassle of compiling the code then please check the screenshots to give you a visual idea of what the application looks like.
+This application will allow the user to keep a track of their reminders that are based on locations. It can also track your locations with a given time interval and duration; making it a fully fledged real-time gps tracker. 
 
 # Installation
 Install by downloading the raw app-release.apk file and installing it onto your phone.
