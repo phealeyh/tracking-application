@@ -35,7 +35,7 @@ Click on the Blue 'Go To User Location' section found in the home page. It will 
 
 - If you want to use your own API key then please head to: https://console.developers.google.com and sign up for a google maps api key. Change the key in the string found in the google_maps_api.xml file with the key you receive from google and then generate a SHA from gradle and list that SHA in the credentials page. The package name should be listed as tracking.id11723222.com.trackingapplication 
 
-Privacy Policy:
+# Privacy Policy:
 - This mobile application will collect personal data in the form of your geographical location and email. It will use this information in order to display where you are and record that information into the application itself. In regards to the email, when you decide to email your recorded geographical locations then it will preload your email into the 'from' field so that you won't have to type it in yourself.
 
 These are the only information that are collected within the mobile application and they will not be disclosed to any external server.
